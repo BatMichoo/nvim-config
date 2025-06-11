@@ -3,6 +3,8 @@ vim.g.maplocalleader = ' '
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = true
 
+vim.o.swapfile = false
+
 -- [[ Setting options ]]
 -- See `:help vim.o`
 -- NOTE: You can change these options as you wish!
@@ -14,10 +16,9 @@ vim.o.number = true
 --  Experiment for yourself to see if you like it!
 vim.o.relativenumber = true
 vim.o.wrap = true
+vim.o.tabstop = 4
 vim.o.expandtab = true
 vim.o.autoindent = true
-vim.o.shiftwidth = 4
-vim.o.softtabstop = 4
 vim.o.smarttab = true
 
 -- Enable mouse mode, can be useful for resizing splits for example!

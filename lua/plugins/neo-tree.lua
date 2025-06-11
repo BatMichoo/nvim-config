@@ -11,15 +11,15 @@ return {
   },
   lazy = false,
   keys = {
-    { '<leader>nt', ':Neotree reveal<CR>', desc = 'NeoTree reveal', silent = true },
+    { '<leader>nt', ':Neotree toggle<CR>', desc = 'NeoTree toggle', silent = true },
   },
-  opts = {
-    filesystem = {
-      window = {
-        mappings = {
-          ['<leader>nt'] = 'close_window',
-        },
-      },
-    },
-  },
+  -- opts = {
+  --   filesystem = {
+  --     window = {
+  --       mappings = {
+  --         ['<leader>nt'] = 'close_window',
+  --       },
+  --     },
+  --   },
+  -- },
 }

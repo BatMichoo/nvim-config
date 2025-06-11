@@ -157,7 +157,8 @@ return {
       },
     }
 
-    local capabilities = require('blink.cmp').get_lsp_capabilities()
+    -- local capabilities = require('blink.cmp').get_lsp_capabilities()
+    local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
     --  Add any additional override configuration in the following tables. Available keys are:
     --  - cmd (table): Override the default command used to start the server

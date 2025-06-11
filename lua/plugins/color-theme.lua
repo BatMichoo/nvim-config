@@ -1,0 +1,31 @@
+-- return {
+--   -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
+--   'folke/tokyonight.nvim',
+--   priority = 1000, -- Make sure to load this before all the other start plugins.
+--   config = function()
+--     ---@diagnostic disable-next-line: missing-fields
+--     require('tokyonight').setup {
+--       styles = {
+--         comments = { italic = true }, -- Disable italics in comments
+--       },
+--     }
+--
+--     -- Like many other themes, this one has different styles, and you could load
+--     -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
+--     vim.cmd.colorscheme 'tokyonight-storm'
+--   end,
+-- }
+
+return {
+  'gmr458/vscode_modern_theme.nvim',
+  lazy = false,
+  priority = 1000,
+  config = function()
+    require('vscode_modern').setup {
+      cursorline = true,
+      transparent_background = false,
+      nvim_tree_darker = true,
+    }
+    vim.cmd.colorscheme 'vscode_modern'
+  end,
+}
