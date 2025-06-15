@@ -24,7 +24,7 @@ return {
     },
 
     -- Allows extra capabilities provided by blink.cmp
-    'saghen/blink.cmp',
+    'hrsh7th/cmp-nvim-lsp',
   },
   config = function()
     --    function will be executed to configure the current buffer
@@ -48,6 +48,9 @@ return {
         -- Execute a code action, usually your cursor needs to be on top of an error
         -- or a suggestion from your LSP for this to activate.
         map('gra', vim.lsp.buf.code_action, '[G]oto Code [A]ction', { 'n', 'x' })
+
+        -- Refresh code lens
+        map('grl', '<cmd> lua vim.lsp.codelens.refresh()<CR>', 'Refresh Code lens')
 
         -- Find references for the word under your cursor.
         map('grr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
@@ -132,6 +135,7 @@ return {
     -- See :help vim.diagnostic.Opts
     vim.diagnostic.config {
       severity_sort = true,
+
       float = { border = 'rounded', source = 'if_many' },
       underline = { severity = vim.diagnostic.severity.ERROR },
       signs = vim.g.have_nerd_font and {
@@ -145,6 +149,7 @@ return {
       virtual_text = {
         source = 'if_many',
         spacing = 2,
+        overflow = 'scroll',
         format = function(diagnostic)
           local diagnostic_message = {
             [vim.diagnostic.severity.ERROR] = diagnostic.message,
@@ -157,15 +162,8 @@ return {
       },
     }
 
-    -- local capabilities = require('blink.cmp').get_lsp_capabilities()
     local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
-    --  Add any additional override configuration in the following tables. Available keys are:
-    --  - cmd (table): Override the default command used to start the server
-    --  - filetypes (table): Override the default list of associated filetypes for the server
-    --  - capabilities (table): Override fields in capabilities. Can be used to disable certain LSP features.
-    --  - settings (table): Override the default settings passed when initializing the server.
-    --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
     local servers = {
       cssls = {},
       html = {},
@@ -176,33 +174,27 @@ return {
       },
       gopls = {},
       ts_ls = {},
-      roslyn_ls = {
-        cmd = {
-          'dotnet',
-          '/home/batmicho/.local/share/nvim/mason/packages/roslyn/libexec/Microsoft.CodeAnalysis.LanguageServer.dll',
-          '--logLevel=Warning',
-          '--extensionLogDirectory=' .. vim.fs.dirname(vim.lsp.get_log_path()),
-          '--stdio',
-        },
-        settings = {
-          ['csharp|highlighting'] = {
-            dotnet_highlight_related_json_components = true,
-          },
-        },
-      },
+      sqls = {},
+      -- protols = {},
+      -- roslyn_ls = {
+      --   cmd = {
+      --     'dotnet',
+      --     vim.fn.stdpath 'data' .. '/mason/packages/roslyn/libexec/Microsoft.CodeAnalysis.LanguageServer.dll',
+      --     '--logLevel=Warning',
+      --     '--extensionLogDirectory=' .. vim.fs.dirname(vim.lsp.get_log_path()),
+      --     '--stdio',
+      --   },
+      --   settings = {
+      --     ['csharp|highlighting'] = {
+      --       dotnet_highlight_related_json_components = true,
+      --     },
+      --   },
+      -- },
 
       -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
       --
-      -- Some languages (like typescript) have entire language plugins that can be useful:
-      --    https://github.com/pmizio/typescript-tools.nvim
-      --
-      -- But for many setups, the LSP (`ts_ls`) will work just fine
-      -- ts_ls = {},
 
       lua_ls = {
-        -- cmd = { ... },
-        -- filetypes = { ... },
-        -- capabilities = {},
         settings = {
           Lua = {
             completion = {
@@ -215,31 +207,8 @@ return {
       },
     }
 
-    -- Ensure the servers and tools above are installed
-    --
-    -- To check the current status of installed tools and/or manually install
-    -- other tools, you can run
-    --    :Mason
-    --
-    -- You can press `g?` for help in this menu.
-    --
-    -- `mason` had to be setup earlier: to configure its options see the
-    -- `dependencies` table for `nvim-lspconfig` above.
-    --
-    -- You can add other tools here that you want Mason to install
-    -- for you, so that they are available from within Neovim.
-    local server_names = vim.tbl_keys(servers or {})
-    local ensure_installed = {}
-
-    for _, server_name_lspconfig in ipairs(server_names) do
-      local mason_package_name = server_name_lspconfig
-
-      if server_name_lspconfig == 'roslyn_ls' then
-        mason_package_name = 'roslyn'
-      end
-
-      table.insert(ensure_installed, mason_package_name)
-    end
+    local ensure_installed = vim.tbl_keys(servers or {})
+    table.insert(ensure_installed, 'roslyn')
 
     vim.list_extend(ensure_installed, {
       'stylua', -- Used to format Lua code

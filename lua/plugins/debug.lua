@@ -18,11 +18,11 @@ return {
     'nvim-neotest/nvim-nio',
 
     -- Installs the debug adapters for you
-    'williamboman/mason.nvim',
+    'mason-org/mason.nvim',
     'jay-babu/mason-nvim-dap.nvim',
 
-    'leoluz/nvim-dap-go',
-    'NicholasMata/nvim-dap-cs',
+    'leoluz/nvim-dap-go',       -- GO
+    'NicholasMata/nvim-dap-cs', -- C#
   },
   keys = {
     -- Basic debugging keymaps, feel free to change to your liking!

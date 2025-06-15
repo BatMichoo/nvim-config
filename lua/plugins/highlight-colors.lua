@@ -1,16 +1,17 @@
 return {
   'git@github.com:brenoprata10/nvim-highlight-colors',
   -- You can add dependencies if needed, e.g., on a specific treesitter parser
-  -- dependencies = { 'nvim-treesitter/nvim-treesitter' },
+  dependencies = { 'nvim-treesitter/nvim-treesitter' },
   config = function()
     vim.opt.termguicolors = true
 
     require('nvim-highlight-colors').setup {
       render = 'virtual',
-      enable_rgb = true,    -- Highlight rgb() colors
-      enable_hex = true,    -- Highlight #RRGGBB colors
-      enable_var = true,    -- Highlight CSS variables (e.g., var(--my-color))
-      enable_alpha = true,  -- Handle alpha values
+      virtual_symbol = '●',
+      enable_rgb = true, -- Highlight rgb() colors
+      enable_hex = true, -- Highlight #RRGGBB colors
+      enable_var = true, -- Highlight CSS variables (e.g., var(--my-color))
+      enable_alpha = true, -- Handle alpha values
       custom_file_types = { -- Filetypes where the plugin should be active
         'css',
         'scss',
@@ -18,8 +19,8 @@ return {
         'jsx',
         'tsx',
         'vue',
-        'go',  -- Example: for Go templates or similar
-        'lua', -- Example: for Lua where you might define colors
+        'go',
+        'lua',
       },
     }
   end,
