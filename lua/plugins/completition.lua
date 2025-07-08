@@ -39,9 +39,7 @@ return {
           { name = 'buffer' },
         }),
         formatting = {
-          format = function(entry, item)
-            return require('nvim-highlight-colors').format(entry, item)
-          end,
+          format = require('nvim-highlight-colors').format,
         },
       }
     end,

@@ -167,6 +167,7 @@ return {
     local servers = {
       cssls = {},
       html = {},
+      htmx = {},
       jsonls = {},
       dockerls = {},
       docker_compose_language_service = {

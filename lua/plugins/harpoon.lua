@@ -10,7 +10,7 @@ return {
       desc = '[A]dd mark',
     },
     {
-      '<leader>h',
+      '<leader>hh',
       function()
         require('harpoon.ui').toggle_quick_menu()
       end,
