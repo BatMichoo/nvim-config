@@ -140,10 +140,10 @@ return {
       underline = { severity = vim.diagnostic.severity.ERROR },
       signs = vim.g.have_nerd_font and {
         text = {
-          [vim.diagnostic.severity.ERROR] = '󰅚 ',
-          [vim.diagnostic.severity.WARN] = '󰀪 ',
-          [vim.diagnostic.severity.INFO] = '󰋽 ',
-          [vim.diagnostic.severity.HINT] = '󰌶 ',
+          [vim.diagnostic.severity.ERROR] = '󰅚',
+          [vim.diagnostic.severity.WARN] = '󰀪',
+          [vim.diagnostic.severity.INFO] = '󰋽',
+          [vim.diagnostic.severity.HINT] = '󰌶',
         },
       } or {},
       virtual_text = {
@@ -213,6 +213,9 @@ return {
 
     vim.list_extend(ensure_installed, {
       'stylua', -- Used to format Lua code
+      'goimports',
+      'prettier',
+      'hadolint',
     })
     require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
