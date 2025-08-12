@@ -57,8 +57,8 @@ return {
       dashboard.button('r', '⌛  Recent files', ':Telescope oldfiles <CR>'),
       dashboard.button('v', '🎮  Practice with VimBeGood', ':VimBeGood<CR>'),
       dashboard.button('L', '💤  Lazy', ':Lazy<CR>'),
-      dashboard.button('m', '📦  Mason', ':Mason<CR>'),
-      dashboard.button('q', '󰈆 Quit', ':q<CR>'),
+      dashboard.button('M', '📦  Mason', ':Mason<CR>'),
+      dashboard.button('q', '🛑  Quit', ':q<CR>'),
     }
 
     dashboard.section.git = {
@@ -73,13 +73,13 @@ return {
     }
 
     dashboard.opts.layout = {
-      dashboard.section.header, -- Your custom ASCII art
+      dashboard.section.header,  -- Your custom ASCII art
       { type = 'padding', val = 2 },
       dashboard.section.buttons, -- Your buttons
       { type = 'padding', val = 2 },
-      dashboard.section.git, -- The Git heatmap
+      dashboard.section.git,     -- The Git heatmap
       { type = 'padding', val = 2 },
-      dashboard.section.footer, -- The default footer (or define your own)
+      dashboard.section.footer,  -- The default footer (or define your own)
     }
     alpha.setup(dashboard.opts)
   end,
