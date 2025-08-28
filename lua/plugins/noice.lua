@@ -42,6 +42,10 @@ return {
       signature = {
         auto_open = { enabled = false },
       },
+      -- Start up errors from Roslyn LSP, filters below not working
+      progress = {
+        enabled = false,
+      },
     },
     status = {
       -- Statusline component for LSP progress notifications.
