@@ -16,25 +16,27 @@ return {
     -- Required dependency for nvim-dap-ui
     'nvim-neotest/nvim-nio',
 
-    'leoluz/nvim-dap-go',    -- GO
+    'leoluz/nvim-dap-go', -- GO
     'BatMichoo/nvim-dap-cs', -- C#
   },
   config = function()
     local dap = require 'dap'
     local dapui = require 'dapui'
 
-    -- dap.adapters.coreclr = netcoredbg_adapter
-
     dap.listeners.before.attach.dapui_config = function()
+      vim.cmd 'Neotree toggle'
       dapui.open()
     end
     dap.listeners.before.launch.dapui_config = function()
+      vim.cmd 'Neotree toggle'
       dapui.open()
     end
     dap.listeners.before.event_terminated.dapui_config = function()
+      vim.cmd 'Neotree toggle'
       dapui.close()
     end
     dap.listeners.before.event_exited.dapui_config = function()
+      vim.cmd 'Neotree toggle'
       dapui.close()
     end
 
@@ -68,7 +70,7 @@ return {
     vim.api.nvim_set_hl(0, 'DapStop', { fg = '#ffcc00' })
     local breakpoint_icons = vim.g.have_nerd_font
         and { Breakpoint = '', BreakpointCondition = '', BreakpointRejected = '', LogPoint = '', Stopped = '' }
-        or { Breakpoint = '●', BreakpointCondition = '⊜', BreakpointRejected = '⊘', LogPoint = '◆', Stopped = '⭔' }
+      or { Breakpoint = '●', BreakpointCondition = '⊜', BreakpointRejected = '⊘', LogPoint = '◆', Stopped = '⭔' }
     for type, icon in pairs(breakpoint_icons) do
       local tp = 'Dap' .. type
       local hl = (type == 'Stopped') and 'DapStop' or 'DapBreak'
