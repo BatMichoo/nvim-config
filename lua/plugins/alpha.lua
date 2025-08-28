@@ -53,9 +53,10 @@ return {
     }
 
     dashboard.section.buttons.val = {
-      dashboard.button('s', '🛠️  Settings', ':e $HOME/.config/nvim/init.lua<CR>'),
-      dashboard.button('r', '⌛  Recent files', ':Telescope oldfiles <CR>'),
-      dashboard.button('v', '🎮  Practice with VimBeGood', ':VimBeGood<CR>'),
+      dashboard.button('s', '🛠️  Settings',
+        ":lua require('telescope.builtin').find_files({ cwd = vim.fn.stdpath 'config' })<CR>"),
+      dashboard.button('r', '📁  Files', ':Telescope find_files<CR>'),
+      dashboard.button('v', '🎮  VimBeGood', ':VimBeGood<CR>'),
       dashboard.button('L', '💤  Lazy', ':Lazy<CR>'),
       dashboard.button('M', '📦  Mason', ':Mason<CR>'),
       dashboard.button('q', '🛑  Quit', ':q<CR>'),

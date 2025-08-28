@@ -22,10 +22,13 @@ return {
       -- The first format in the list is usually the default for output.
       formats = {
         'rgb',
-        'hsl',
         'hex',
         'name',
         -- 'cmyk', 'hwb', 'lab', 'lch', 'srgb', 'oklab', 'oklch',
+      },
+      recognize = {
+        input = true,
+        output = true,
       },
       -- Optional: Custom names for colors (e.g., your theme's named colors)
       -- custom_names = {

@@ -11,9 +11,5 @@ return {
     { '<leader>npa', '<cmd>:DotnetUI project package add<CR>', desc = '.NET add project package', silent = true },
     { '<leader>npr', '<cmd>:DotnetUI project package remove<CR>', desc = '.NET remove project package', silent = true },
   },
-  opts = {
-    -- project_selection = {
-    -- 	path_display = 'filename_first',
-    -- }
-  },
+  opts = {},
 }
