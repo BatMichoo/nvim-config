@@ -168,7 +168,9 @@ return {
     local servers = {
       cssls = {},
       html = {},
-      htmx = {},
+      htmx = {
+        filetypes = { 'html' },
+      },
       jsonls = {},
       dockerls = {},
       docker_compose_language_service = {
@@ -178,20 +180,6 @@ return {
       ts_ls = {},
       sqls = {},
       -- protols = {},
-      -- roslyn_ls = {
-      --   cmd = {
-      --     'dotnet',
-      --     vim.fn.stdpath 'data' .. '/mason/packages/roslyn/libexec/Microsoft.CodeAnalysis.LanguageServer.dll',
-      --     '--logLevel=Warning',
-      --     '--extensionLogDirectory=' .. vim.fs.dirname(vim.lsp.get_log_path()),
-      --     '--stdio',
-      --   },
-      --   settings = {
-      --     ['csharp|highlighting'] = {
-      --       dotnet_highlight_related_json_components = true,
-      --     },
-      --   },
-      -- },
 
       -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
       --

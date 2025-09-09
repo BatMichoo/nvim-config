@@ -140,7 +140,7 @@ return {
       "<Cmd>lua require('neotest').run.run({strategy = 'dap'})<CR>",
       noremap = true,
       silent = true,
-      desc = 'debug nearest test',
+      desc = 'Debug: Nearest Unit Test',
     },
   },
 }
