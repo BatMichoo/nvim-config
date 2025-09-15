@@ -71,5 +71,6 @@ return {
     vim.api.nvim_set_hl(0, '@lsp.type.enum.cs', { link = '@lsp.type.interface.cs' })
     vim.api.nvim_set_hl(0, '@lsp.type.method.cs', { link = '@function.c_sharp' })
     vim.api.nvim_set_hl(0, '@lsp.type.extensionMethod.cs', { link = '@function.c_sharp' })
+    vim.api.nvim_set_hl(0, '@lsp.type.event.cs', { link = '@function.c_sharp' })
   end,
 }

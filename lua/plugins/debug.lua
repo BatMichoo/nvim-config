@@ -16,7 +16,7 @@ return {
     -- Required dependency for nvim-dap-ui
     'nvim-neotest/nvim-nio',
 
-    'leoluz/nvim-dap-go',    -- GO
+    'leoluz/nvim-dap-go', -- GO
     'BatMichoo/nvim-dap-cs', -- C#
   },
   config = function()
@@ -46,21 +46,40 @@ return {
     -- Dap UI setup
     -- For more information, see |:help nvim-dap-ui|
     dapui.setup {
+      expand_lines = true,
+      controls = { enabled = false }, -- no extra play/step buttons
+      floating = { border = 'rounded' },
+      -- Set dapui window
+      render = {
+        max_type_length = 60,
+        max_value_lines = 200,
+      },
+      -- Only one layout: just the "scopes" (variables) list at the bottom
+      layouts = {
+        {
+          elements = {
+            { id = 'scopes', size = 0.7 }, -- 100% of this panel is scopes
+            { id = 'repl', size = 0.3 },
+          },
+          size = 10, -- height in lines (adjust to taste)
+          position = 'bottom', -- "left", "right", "top", "bottom"
+        },
+      },
       -- Set icons to characters that are more likely to work in every terminal.
       --    Feel free to remove or use ones that you like more! :)
       --    Don't feel like these are good choices.
       icons = { expanded = '▾', collapsed = '▸', current_frame = '*' },
       controls = {
         icons = {
-          pause = '⏸',
-          play = '▶',
-          step_into = '⏎',
-          step_over = '⏭',
-          step_out = '⏮',
-          step_back = 'b',
-          run_last = '▶▶',
-          terminate = '⏹',
-          disconnect = '⏏',
+          pause = '⏸️',
+          play = '▶️',
+          step_into = '⬇️',
+          step_over = '⤵️',
+          step_out = '⤴️',
+          step_back = '◀️',
+          run_last = '🔂',
+          terminate = '⏹️',
+          disconnect = '⏏️',
         },
       },
     }
@@ -70,7 +89,7 @@ return {
     vim.api.nvim_set_hl(0, 'DapStop', { fg = '#ffcc00' })
     local breakpoint_icons = vim.g.have_nerd_font
         and { Breakpoint = '', BreakpointCondition = '', BreakpointRejected = '', LogPoint = '', Stopped = '' }
-        or { Breakpoint = '●', BreakpointCondition = '⊜', BreakpointRejected = '⊘', LogPoint = '◆', Stopped = '⭔' }
+      or { Breakpoint = '●', BreakpointCondition = '⊜', BreakpointRejected = '⊘', LogPoint = '◆', Stopped = '⭔' }
     for type, icon in pairs(breakpoint_icons) do
       local tp = 'Dap' .. type
       local hl = (type == 'Stopped') and 'DapStop' or 'DapBreak'
@@ -141,6 +160,13 @@ return {
       noremap = true,
       silent = true,
       desc = 'Debug: Nearest Unit Test',
+    },
+    {
+      '<leader>da',
+      "<Cmd>lua require('neotest').run.run({strategy = 'dap', suite = true})<CR>",
+      noremap = true,
+      silent = true,
+      desc = 'Debug: All Unit Tests',
     },
   },
 }

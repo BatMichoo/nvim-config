@@ -19,4 +19,39 @@ return {
     'antoinemadec/FixCursorHold.nvim',
     'nvim-treesitter/nvim-treesitter',
   },
+  keys = {
+    -- Run all tests in the current file
+    {
+      '<leader>tf',
+      "<Cmd>lua require('neotest').run.run(vim.fn.expand('%'))<CR>",
+      silent = true,
+      desc = 'Run: Current File',
+    },
+    -- Run the full suite (all tests)
+    {
+      '<leader>ta',
+      "<Cmd>lua require('neotest').run.run({suite = true})<CR>",
+      silent = true,
+      desc = 'Run: All Tests',
+    },
+    -- Run the nearest test
+    {
+      '<leader>tn',
+      "<Cmd>lua require('neotest').run.run()<CR>",
+      silent = true,
+      desc = 'Run: Nearest Test',
+    },
+    {
+      '<leader>ts',
+      "<Cmd>lua require('neotest').summary.toggle()<CR>",
+      silent = true,
+      desc = 'Summary: Toggle',
+    },
+    {
+      '<leader>tp',
+      "<Cmd>lua require('neotest').output_panel.toggle()<CR>",
+      silent = true,
+      desc = 'Output Panel: Toggle',
+    },
+  },
 }

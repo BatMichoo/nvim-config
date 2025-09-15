@@ -165,25 +165,30 @@ return {
 
     local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
-    local servers = {
-      cssls = {},
-      html = {},
-      htmx = {
-        filetypes = { 'html' },
-      },
-      jsonls = {},
-      dockerls = {},
-      docker_compose_language_service = {
-        filetypes = { 'yaml.docker-compose' },
-      },
-      gopls = {},
-      ts_ls = {},
-      sqls = {},
-      -- protols = {},
+    local servers = {}
+    if vim.fn.has 'win32' == 0 then
+      servers = {
+        cssls = {},
+        html = {},
+        htmx = {
+          filetypes = { 'html' },
+        },
+        jsonls = {},
+        dockerls = {},
+        docker_compose_language_service = {
+          filetypes = { 'yaml.docker-compose' },
+        },
+        gopls = {},
+        ts_ls = {
+          javascript = {
+            semanticTokens = { enable = 'all' },
+          },
+        },
+        sqls = {},
+      }
+    end
 
-      -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
-      --
-
+    vim.list_extend(servers, {
       lua_ls = {
         settings = {
           Lua = {
@@ -195,17 +200,25 @@ return {
           },
         },
       },
-    }
+    })
 
     local ensure_installed = vim.tbl_keys(servers or {})
     table.insert(ensure_installed, 'roslyn')
 
-    vim.list_extend(ensure_installed, {
+    local linters_and_formatters = {
       'stylua', -- Used to format Lua code
-      'goimports',
-      'prettier',
-      'hadolint',
-    })
+    }
+
+    if vim.fn.has 'win32' == 0 then
+      vim.list_extend(linters_and_formatters, {
+        'goimports', -- Used to format GO code
+        'prettier',
+        'hadolint', -- Used to format Dockerfiles
+      })
+    end
+
+    vim.list_extend(ensure_installed, linters_and_formatters)
+
     require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
     for server_name, config in pairs(servers) do
