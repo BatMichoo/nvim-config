@@ -1,10 +1,6 @@
 -- debug.lua
 --
 -- Shows how to use the DAP plugin to debug your code.
---
--- Primarily focused on configuring the debugger for Go, but can
--- be extended to other languages as well. That's why it's called
--- kickstart.nvim and not kitchen-sink.nvim ;)
 
 return {
   -- NOTE: Yes, you can install new plugins here!
@@ -16,7 +12,7 @@ return {
     -- Required dependency for nvim-dap-ui
     'nvim-neotest/nvim-nio',
 
-    'leoluz/nvim-dap-go', -- GO
+    'leoluz/nvim-dap-go',    -- GO
     'BatMichoo/nvim-dap-cs', -- C#
   },
   config = function()
@@ -59,9 +55,9 @@ return {
         {
           elements = {
             { id = 'scopes', size = 0.7 }, -- 100% of this panel is scopes
-            { id = 'repl', size = 0.3 },
+            { id = 'repl',   size = 0.3 },
           },
-          size = 10, -- height in lines (adjust to taste)
+          size = 10,           -- height in lines (adjust to taste)
           position = 'bottom', -- "left", "right", "top", "bottom"
         },
       },
@@ -89,7 +85,7 @@ return {
     vim.api.nvim_set_hl(0, 'DapStop', { fg = '#ffcc00' })
     local breakpoint_icons = vim.g.have_nerd_font
         and { Breakpoint = '', BreakpointCondition = '', BreakpointRejected = '', LogPoint = '', Stopped = '' }
-      or { Breakpoint = '●', BreakpointCondition = '⊜', BreakpointRejected = '⊘', LogPoint = '◆', Stopped = '⭔' }
+        or { Breakpoint = '●', BreakpointCondition = '⊜', BreakpointRejected = '⊘', LogPoint = '◆', Stopped = '⭔' }
     for type, icon in pairs(breakpoint_icons) do
       local tp = 'Dap' .. type
       local hl = (type == 'Stopped') and 'DapStop' or 'DapBreak'
