@@ -196,7 +196,7 @@ return {
       }
     end
 
-    vim.list_extend(servers, {
+    servers = vim.tbl_extend('force', servers, {
       lua_ls = {
         settings = {
           Lua = {
