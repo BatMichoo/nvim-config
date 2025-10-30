@@ -1,5 +1,5 @@
 return {
-  'git@github.com:brenoprata10/nvim-highlight-colors',
+  'brenoprata10/nvim-highlight-colors',
   -- You can add dependencies if needed, e.g., on a specific treesitter parser
   dependencies = { 'nvim-treesitter/nvim-treesitter' },
   config = function()
@@ -8,12 +8,12 @@ return {
     require('nvim-highlight-colors').setup {
       render = 'virtual',
       virtual_symbol = '●',
-      enable_rgb = true,          -- Highlight rgb() colors
-      enable_hex = true,          -- Highlight #RRGGBB colors
-      enable_var = true,          -- Highlight CSS variables (e.g., var(--my-color))
-      enable_alpha = true,        -- Handle alpha values
+      enable_rgb = true, -- Highlight rgb() colors
+      enable_hex = true, -- Highlight #RRGGBB colors
+      enable_var = true, -- Highlight CSS variables (e.g., var(--my-color))
+      enable_alpha = true, -- Handle alpha values
       enable_named_colors = true, -- Handle named colors e.g. green
-      custom_file_types = {       -- Filetypes where the plugin should be active
+      custom_file_types = { -- Filetypes where the plugin should be active
         'css',
         'scss',
         'html',

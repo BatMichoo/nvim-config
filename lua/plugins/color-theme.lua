@@ -35,6 +35,7 @@ return {
     local property_color = '#DCDCDC'
     local keyword_color = '#569CD6'
     local control_keyword_color = '#D8A0DF'
+    local struct_color = '#86C691'
 
     -- Set base highlight groups with colors
     vim.api.nvim_set_hl(0, '@type.c_sharp', { fg = type_color })
@@ -46,13 +47,13 @@ return {
     vim.api.nvim_set_hl(0, '@keyword.import.c_sharp', { fg = keyword_color })
     vim.api.nvim_set_hl(0, '@keyword.control.c_sharp', { fg = control_keyword_color })
     vim.api.nvim_set_hl(0, '@constant.builtin.c_sharp', { fg = keyword_color })
+    vim.api.nvim_set_hl(0, '@type.struct.c_sharp', { fg = struct_color })
 
     -- Link specific highlight groups to their base groups
     vim.api.nvim_set_hl(0, '@variable.parameter.c_sharp', { link = '@variable.c_sharp' })
     vim.api.nvim_set_hl(0, '@constant.c_sharp', { link = '@variable.c_sharp' })
     vim.api.nvim_set_hl(0, '@method.c_sharp', { link = '@function.c_sharp' })
     vim.api.nvim_set_hl(0, '@type.enum.c_sharp', { link = '@type.c_sharp' })
-    vim.api.nvim_set_hl(0, '@type.struct.c_sharp', { link = '@type.c_sharp' })
     vim.api.nvim_set_hl(0, '@keyword.import.c_sharp', { link = '@keyword.c_sharp' })
 
     -- LSP specific highlight groups
@@ -63,6 +64,7 @@ return {
     vim.api.nvim_set_hl(0, '@lsp.type.field.cs', { link = '@variable.field.c_sharp' })
     vim.api.nvim_set_hl(0, '@lsp.type.property.cs', { link = '@variable.member.c_sharp' })
     vim.api.nvim_set_hl(0, '@lsp.type.variable.cs', { link = '@variable.c_sharp' })
+    vim.api.nvim_set_hl(0, '@lsp.type.constant.cs', { fg = property_color }) -- TODO: Link properly
     vim.api.nvim_set_hl(0, '@lsp.type.parameter.cs', { link = '@variable.c_sharp' })
     vim.api.nvim_set_hl(0, '@lsp.type.namespace.cs', { link = '@variable.member.c_sharp' })
     vim.api.nvim_set_hl(0, '@lsp.type.enumMember.cs', { link = '@variable.member.c_sharp' })
@@ -72,5 +74,6 @@ return {
     vim.api.nvim_set_hl(0, '@lsp.type.method.cs', { link = '@function.c_sharp' })
     vim.api.nvim_set_hl(0, '@lsp.type.extensionMethod.cs', { link = '@function.c_sharp' })
     vim.api.nvim_set_hl(0, '@lsp.type.event.cs', { link = '@function.c_sharp' })
+    vim.api.nvim_set_hl(0, '@lsp.type.struct.cs', { link = '@type.struct.c_sharp' })
   end,
 }

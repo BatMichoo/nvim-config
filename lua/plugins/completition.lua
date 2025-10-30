@@ -33,6 +33,7 @@ return {
         },
         sources = cmp.config.sources({
           { name = 'nvim_lsp' },
+          { name = 'easy-dotnet' },
           { name = 'luasnip' }, -- For luasnip users.
           { name = 'vim-dadbod-completion' },
         }, {

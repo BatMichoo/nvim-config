@@ -165,7 +165,15 @@ return {
 
     local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
-    local servers = {}
+    vim.filetype.add {
+      extension = {
+        xaml = 'xml',
+      },
+    }
+
+    local servers = {
+      lemminx = {},
+    }
     if vim.fn.has 'win32' == 0 then
       servers = {
         cssls = {},

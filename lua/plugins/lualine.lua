@@ -8,10 +8,15 @@ return {
     custom_auto.normal.b.fg = '#007ACC'
     custom_auto.normal.a.fg = '#E5E5E5'
 
+    local job_indicator = { require('easy-dotnet.ui-modules.jobs').lualine }
+
     return {
       options = {
         theme = custom_auto,
         globalstatus = true,
+        sections = {
+          lualine_a = { 'mode', job_indicator },
+        },
       },
       -- If you have custom sections, ensure your a and z sections are indeed the outermost
       -- For example, if you overrode sections:
