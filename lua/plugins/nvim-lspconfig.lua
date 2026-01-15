@@ -1,7 +1,7 @@
 return {
   -- Main LSP Configuration
   'neovim/nvim-lspconfig',
-  tag = 'v2.3.0',
+  -- tag = 'v2.3.0',
   dependencies = {
     -- Automatically install LSPs and related tools to stdpath for Neovim
     -- Mason must be loaded before its dependents so we need to set it up here.
@@ -132,11 +132,38 @@ return {
       end,
     })
 
-    -- Diagnostic Config
-    -- See :help vim.diagnostic.Opts
+    -- 1. Define Linters (High Priority Sources)
+    local linters = {
+      'hadolint', -- Dockerfile linter
+      'eslint_d', -- JS/TS linter
+      'markdownlint', -- Markdown linter
+    }
+
+    -- 2. Define Formatters
+    local formatters = {
+      'stylua', -- Lua formatter
+      'prettier', -- JS/TS/CSS/HTML formatter
+      'markdownlint', -- Markdown formatter
+    }
+
+    if vim.fn.has 'win32' == 0 then
+      -- Linters
+      table.insert(linters, 'golangci-lint')
+      -- Formatters
+      table.insert(formatters, 'goimports')
+    end
+
+    -- Trusted sources that should override native LSP diagnostics
+    local high_priority_sources = {
+      ['eslint'] = true,
+      ['hadolint'] = true,
+      ['markdownlint'] = true,
+      ['golangci-lint'] = true,
+    }
+
+    -- 3. Diagnostic Config using the high_priority whitelist
     vim.diagnostic.config {
       severity_sort = true,
-
       float = { border = 'rounded', source = 'if_many' },
       underline = { severity = vim.diagnostic.severity.ERROR },
       signs = vim.g.have_nerd_font and {
@@ -152,80 +179,76 @@ return {
         spacing = 2,
         overflow = 'scroll',
         format = function(diagnostic)
-          local diagnostic_message = {
-            [vim.diagnostic.severity.ERROR] = diagnostic.message,
-            [vim.diagnostic.severity.WARN] = diagnostic.message,
-            [vim.diagnostic.severity.INFO] = diagnostic.message,
-            [vim.diagnostic.severity.HINT] = diagnostic.message,
-          }
-          return diagnostic_message[diagnostic.severity]
+          -- Fetch other diagnostics on the same line
+          local diagnostics_on_line = vim.diagnostic.get(diagnostic.bufnr, { lnum = diagnostic.lnum })
+
+          for _, d in ipairs(diagnostics_on_line) do
+            if d.message == diagnostic.message and d.source ~= diagnostic.source then
+              local current_is_high = high_priority_sources[diagnostic.source]
+              local other_is_high = high_priority_sources[d.source]
+
+              -- Logic: If the other diagnostic is from a high-priority linter
+              -- and the current one is NOT, hide the current one.
+              if other_is_high and not current_is_high then
+                return nil
+              end
+
+              -- Tie-breaker: If both are high or both are low, stick to alphabetical
+              if current_is_high == other_is_high and diagnostic.source > d.source then
+                return nil
+              end
+            end
+          end
+
+          return diagnostic.message
         end,
       },
     }
 
+    -- 4. Server Capabilities & Setup
     local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
     vim.filetype.add {
-      extension = {
-        xaml = 'xml',
-      },
+      extension = { xaml = 'xml' },
     }
 
+    -- Define your LSP servers
     local servers = {
-      lemminx = {},
-    }
-    if vim.fn.has 'win32' == 0 then
-      servers = {
-        cssls = {},
-        html = {},
-        htmx = {
-          filetypes = { 'html' },
-        },
-        jsonls = {},
-        dockerls = {},
-        docker_compose_language_service = {
-          filetypes = { 'yaml.docker-compose' },
-        },
-        gopls = {},
-        ts_ls = {
-          javascript = {
-            semanticTokens = { enable = 'all' },
-          },
-        },
-        sqls = {},
-      }
-    end
-
-    servers = vim.tbl_extend('force', servers, {
+      lemminx = {}, --XML/XAML
+      ts_ls = {
+        javascript = { semanticTokens = { enable = 'all' } },
+      },
       lua_ls = {
         settings = {
           Lua = {
-            completion = {
-              callSnippet = 'Replace',
-            },
-            -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
-            -- diagnostics = { disable = { 'missing-fields' } },
+            completion = { callSnippet = 'Replace' },
           },
         },
       },
-    })
-
-    local ensure_installed = vim.tbl_keys(servers or {})
-    table.insert(ensure_installed, 'roslyn')
-
-    local linters_and_formatters = {
-      'stylua', -- Used to format Lua code
+      jsonls = {},
     }
 
     if vim.fn.has 'win32' == 0 then
-      vim.list_extend(linters_and_formatters, {
-        'goimports', -- Used to format GO code
-        'prettier',
-        'hadolint', -- Used to format Dockerfiles
-      })
+      local linux_servers = {
+        cssls = {},
+        html = {},
+        htmx = { filetypes = { 'html' } },
+        dockerls = {},
+        docker_compose_language_service = { filetypes = { 'yaml.docker-compose' } },
+        gopls = {},
+        sqls = {},
+      }
+      -- Merge unix_servers into servers
+      for k, v in pairs(linux_servers) do
+        servers[k] = v
+      end
     end
 
-    vim.list_extend(ensure_installed, linters_and_formatters)
+    -- 5. Merge lists for installation tools (e.g., Mason)
+    local ensure_installed = vim.tbl_keys(servers or {})
+    vim.list_extend(ensure_installed, linters)
+    vim.list_extend(ensure_installed, formatters)
+    table.insert(ensure_installed, 'roslyn')
 
     require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
