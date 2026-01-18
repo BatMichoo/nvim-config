@@ -135,7 +135,6 @@ return {
     -- 1. Define Linters (High Priority Sources)
     local linters = {
       'hadolint', -- Dockerfile linter
-      'eslint_d', -- JS/TS linter
       'markdownlint', -- Markdown linter
     }
 
