@@ -214,6 +214,8 @@ return {
 
     -- Define your LSP servers
     local servers = {
+      cssls = {},
+      html = {},
       lemminx = {}, --XML/XAML
       ts_ls = {
         javascript = { semanticTokens = { enable = 'all' } },
@@ -226,19 +228,18 @@ return {
         },
       },
       jsonls = {},
+      eslint = {},
     }
 
     if vim.fn.has 'win32' == 0 then
       local linux_servers = {
-        cssls = {},
-        html = {},
         htmx = { filetypes = { 'html' } },
         dockerls = {},
         docker_compose_language_service = { filetypes = { 'yaml.docker-compose' } },
         gopls = {},
         sqls = {},
       }
-      -- Merge unix_servers into servers
+      -- Merge linux_servers into servers
       for k, v in pairs(linux_servers) do
         servers[k] = v
       end

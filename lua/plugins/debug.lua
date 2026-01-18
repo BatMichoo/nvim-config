@@ -12,7 +12,7 @@ return {
     -- Required dependency for nvim-dap-ui
     'nvim-neotest/nvim-nio',
 
-    'leoluz/nvim-dap-go',    -- GO
+    'leoluz/nvim-dap-go', -- GO
     'BatMichoo/nvim-dap-cs', -- C#
   },
   config = function()
@@ -36,36 +36,17 @@ return {
       dapui.close()
     end
 
-    require('dap-go').setup()
-    require('dap-cs').setup()
+    if vim.fn.has 'win32' == 0 then
+      require('dap-go').setup {}
+    end
+    require('dap-cs').setup {}
 
     -- Dap UI setup
     -- For more information, see |:help nvim-dap-ui|
     dapui.setup {
       expand_lines = true,
-      controls = { enabled = false }, -- no extra play/step buttons
-      floating = { border = 'rounded' },
-      -- Set dapui window
-      render = {
-        max_type_length = 60,
-        max_value_lines = 200,
-      },
-      -- Only one layout: just the "scopes" (variables) list at the bottom
-      layouts = {
-        {
-          elements = {
-            { id = 'scopes', size = 0.7 }, -- 100% of this panel is scopes
-            { id = 'repl',   size = 0.3 },
-          },
-          size = 10,           -- height in lines (adjust to taste)
-          position = 'bottom', -- "left", "right", "top", "bottom"
-        },
-      },
-      -- Set icons to characters that are more likely to work in every terminal.
-      --    Feel free to remove or use ones that you like more! :)
-      --    Don't feel like these are good choices.
-      icons = { expanded = '▾', collapsed = '▸', current_frame = '*' },
       controls = {
+        enabled = false,
         icons = {
           pause = '⏸️',
           play = '▶️',
@@ -77,7 +58,28 @@ return {
           terminate = '⏹️',
           disconnect = '⏏️',
         },
+      }, -- no extra play/step buttons
+      floating = { border = 'rounded' },
+      -- Set dapui window
+      render = {
+        max_type_length = 60,
+        max_value_lines = 200,
       },
+      -- Only one layout: just the "scopes" (variables) list at the bottom
+      layouts = {
+        {
+          elements = {
+            { id = 'scopes', size = 0.7 }, -- 100% of this panel is scopes
+            { id = 'repl', size = 0.3 },
+          },
+          size = 10, -- height in lines (adjust to taste)
+          position = 'bottom', -- "left", "right", "top", "bottom"
+        },
+      },
+      -- Set icons to characters that are more likely to work in every terminal.
+      --    Feel free to remove or use ones that you like more! :)
+      --    Don't feel like these are good choices.
+      icons = { expanded = '▾', collapsed = '▸', current_frame = '*' },
     }
 
     -- Change breakpoint icons
@@ -85,7 +87,7 @@ return {
     vim.api.nvim_set_hl(0, 'DapStop', { fg = '#ffcc00' })
     local breakpoint_icons = vim.g.have_nerd_font
         and { Breakpoint = '', BreakpointCondition = '', BreakpointRejected = '', LogPoint = '', Stopped = '' }
-        or { Breakpoint = '●', BreakpointCondition = '⊜', BreakpointRejected = '⊘', LogPoint = '◆', Stopped = '⭔' }
+      or { Breakpoint = '●', BreakpointCondition = '⊜', BreakpointRejected = '⊘', LogPoint = '◆', Stopped = '⭔' }
     for type, icon in pairs(breakpoint_icons) do
       local tp = 'Dap' .. type
       local hl = (type == 'Stopped') and 'DapStop' or 'DapBreak'
