@@ -53,9 +53,8 @@ return {
     }
 
     dashboard.section.buttons.val = {
-      dashboard.button('s', '🛠️  Settings',
-        ":lua require('telescope.builtin').find_files({ cwd = vim.fn.stdpath 'config' })<CR>"),
-      dashboard.button('r', '📁  Files', ':Telescope find_files<CR>'),
+      dashboard.button('s', '🛠️  Settings', ":lua require('telescope.builtin').find_files({ cwd = vim.fn.stdpath 'config' })<CR>"),
+      dashboard.button('b', '📁  DB', ':DBUI<CR>'),
       dashboard.button('v', '🎮  VimBeGood', ':VimBeGood<CR>'),
       dashboard.button('L', '💤  Lazy', ':Lazy<CR>'),
       dashboard.button('M', '📦  Mason', ':Mason<CR>'),
@@ -74,13 +73,13 @@ return {
     }
 
     dashboard.opts.layout = {
-      dashboard.section.header,  -- Your custom ASCII art
+      dashboard.section.header, -- Your custom ASCII art
       { type = 'padding', val = 2 },
       dashboard.section.buttons, -- Your buttons
       { type = 'padding', val = 2 },
-      dashboard.section.git,     -- The Git heatmap
+      dashboard.section.git, -- The Git heatmap
       { type = 'padding', val = 2 },
-      dashboard.section.footer,  -- The default footer (or define your own)
+      dashboard.section.footer, -- The default footer (or define your own)
     }
     alpha.setup(dashboard.opts)
   end,
