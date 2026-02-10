@@ -217,7 +217,26 @@ return {
       html = {},
       lemminx = {}, --XML/XAML
       ts_ls = {
-        javascript = { semanticTokens = { enable = 'all' } },
+        javascript = {
+          semanticTokens = { enable = 'all' },
+          implementationsCodeLens = {
+            enabled = true,
+          },
+          referencesCodeLens = {
+            enabled = true,
+            showOnAllFunctions = true,
+          },
+        },
+        typescript = {
+          semanticTokens = { enable = 'all' },
+          implementationsCodeLens = {
+            enabled = true,
+          },
+          referencesCodeLens = {
+            enabled = true,
+            showOnAllFunctions = true,
+          },
+        },
       },
       lua_ls = {
         settings = {

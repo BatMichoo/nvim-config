@@ -4,15 +4,7 @@ return {
   dependencies = {
     -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
     'MunifTanjim/nui.nvim',
-    {
-      'rcarriga/nvim-notify',
-      opts = function(_, opts)
-        -- Fix transparency issue on Windows (VSCode Modern theme)
-        if vim.fn.has 'win32' == 1 then
-          opts.background_colour = '#1F1F1F'
-        end
-      end,
-    },
+    'rcarriga/nvim-notify',
   },
   opts = {
     presets = {
@@ -52,7 +44,7 @@ return {
       },
       -- Start up errors from Roslyn LSP, filters below not working
       progress = {
-        enabled = false,
+        enabled = true,
       },
     },
     status = {

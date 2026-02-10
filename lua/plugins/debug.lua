@@ -14,6 +14,11 @@ return {
 
     'leoluz/nvim-dap-go', -- GO
     'BatMichoo/nvim-dap-cs', -- C#
+    -- 'mxsdev/nvim-dap-vscode-js',
+    -- {
+    --   'microsoft/vscode-js-debug',
+    --   build = 'npm install --legacy-peer-deps && npx gulp vsDebugServerBundle && mv dist out',
+    -- },
   },
   config = function()
     local dap = require 'dap'
@@ -40,6 +45,139 @@ return {
       require('dap-go').setup {}
     end
     require('dap-cs').setup {}
+
+    dap.adapters['pwa-node'] = {
+      type = 'server',
+      host = '127.0.0.1',
+      port = '${port}', -- Neovim will find an available port
+      executable = {
+        command = 'node',
+        args = {
+          -- Use the absolute path you verified
+          [[C:\Users\curti\AppData\Local\nvim-data\lazy\vscode-js-debug\dist\src\vsDebugServer.js]],
+          '${port}', -- This tells the JS server which port to listen on
+        },
+      },
+    }
+    dap.adapters['pwa-chrome'] = {
+      type = 'server',
+      host = '127.0.0.1',
+      port = '${port}', -- Neovim will find an available port
+      executable = {
+        command = 'node',
+        args = {
+          -- Use the absolute path you verified
+          [[C:\Users\curti\AppData\Local\nvim-data\lazy\vscode-js-debug\dist\src\vsDebugServer.js]],
+          '${port}', -- This tells the JS server which port to listen on
+        },
+      },
+    }
+
+    -- Configure for different JS/TS scenarios
+    for _, language in ipairs { 'typescript', 'javascript', 'typescriptreact', 'javascriptreact' } do
+      dap.configurations[language] = {
+        -- Debug single Node.js file
+        {
+          type = 'pwa-node',
+          request = 'launch',
+          name = 'Launch file',
+          program = '${file}',
+          cwd = '${workspaceFolder}',
+          args = {
+            -- Use double brackets [[ ]] to handle Windows backslashes correctly in Lua
+            [[C:\Users\curti\AppData\Local\nvim-data\lazy\vscode-js-debug\dist\src\vsDebugServer.js]],
+            '${port}',
+          },
+        },
+
+        -- Debug Node.js process
+        {
+          type = 'pwa-node',
+          request = 'attach',
+          name = 'Attach',
+          processId = require('dap.utils').pick_process,
+          cwd = '${workspaceFolder}',
+          args = {
+            -- Use double brackets [[ ]] to handle Windows backslashes correctly in Lua
+            [[C:\Users\curti\AppData\Local\nvim-data\lazy\vscode-js-debug\dist\src\vsDebugServer.js]],
+            '${port}',
+          },
+        },
+
+        -- Debug Jest tests
+        {
+          type = 'pwa-node',
+          request = 'launch',
+          name = 'Debug Jest Tests',
+          runtimeExecutable = 'node',
+          runtimeArgs = {
+            './node_modules/jest/bin/jest.js',
+            '--runInBand',
+          },
+          rootPath = '${workspaceFolder}',
+          cwd = '${workspaceFolder}',
+          console = 'integratedTerminal',
+          internalConsoleOptions = 'neverOpen',
+          args = {
+            -- Use double brackets [[ ]] to handle Windows backslashes correctly in Lua
+            [[C:\Users\curti\AppData\Local\nvim-data\lazy\vscode-js-debug\dist\src\vsDebugServer.js]],
+            '${port}',
+          },
+        },
+
+        -- Debug Vite/React app
+        {
+          type = 'pwa-chrome',
+          request = 'launch',
+          name = 'Launch Chrome (Vite)',
+          url = 'http://localhost:5173',
+          webRoot = '${workspaceFolder}',
+          sourceMaps = true,
+          protocol = 'inspector',
+          skipFiles = { '<node_internals>/**', 'node_modules/**' },
+        },
+
+        -- Debug Next.js
+        {
+          type = 'pwa-node',
+          request = 'launch',
+          name = 'Next.js: debug server-side',
+          runtimeExecutable = 'npm',
+          runtimeArgs = { 'run', 'dev' },
+          skipFiles = { '<node_internals>/**' },
+        },
+        {
+          type = 'pwa-node',
+          request = 'attach',
+          name = 'Attach Main (Electron)',
+          port = 5858,
+          cwd = '${workspaceFolder}',
+          args = {
+            -- Use double brackets [[ ]] to handle Windows backslashes correctly in Lua
+            [[C:\Users\curti\AppData\Local\nvim-data\lazy\vscode-js-debug\dist\src\vsDebugServer.js]],
+            '${port}',
+          },
+        },
+        {
+          type = 'pwa-chrome',
+          request = 'attach',
+          name = 'Attach Renderer (Vite)',
+          port = 9223,
+          webRoot = '${workspaceFolder}',
+          -- This is critical for Vite aliases (@irdashies) to map correctly in the debugger
+          sourceMapPathOverrides = {
+            ['vfs://*'] = '*',
+            ['webpack:///./~/*'] = '${workspaceFolder}/node_modules/*',
+            ['@irdashies/*'] = '${workspaceFolder}/src/*',
+          },
+          -- args = {
+          --   -- Use double brackets [[ ]] to handle Windows backslashes correctly in Lua
+          --   [[C:\Users\curti\AppData\Local\nvim-data\lazy\vscode-js-debug\dist\src\vsDebugServer.js]],
+          --   '${port}',
+          -- },
+        },
+      }
+    end
 
     -- Dap UI setup
     -- For more information, see |:help nvim-dap-ui|

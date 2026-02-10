@@ -20,6 +20,10 @@ return {
           '.env*',
         },
       },
+      follow_current_file = {
+        enabled = true, -- This will find and focus the file in the active buffer
+        leave_dirs_open = false, -- Close folders that aren't part of the path
+      },
     },
   },
 }
