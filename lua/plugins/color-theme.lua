@@ -37,6 +37,8 @@ return {
     local control_keyword_color = '#D8A0DF'
     local struct_color = '#86C691'
 
+    --#region C#
+
     -- Set base highlight groups with colors
     vim.api.nvim_set_hl(0, '@type.c_sharp', { fg = type_color })
     vim.api.nvim_set_hl(0, '@variable.c_sharp', { fg = variable_color })
@@ -75,5 +77,10 @@ return {
     vim.api.nvim_set_hl(0, '@lsp.type.extensionMethod.cs', { link = '@function.c_sharp' })
     vim.api.nvim_set_hl(0, '@lsp.type.event.cs', { link = '@function.c_sharp' })
     vim.api.nvim_set_hl(0, '@lsp.type.struct.cs', { link = '@type.struct.c_sharp' })
+
+    --#endregion
+    --#region JS
+    vim.api.nvim_set_hl(0, '@lsp.typemod.variable.defaultLibrary.javascript', { link = 'Type' })
+    --#endregion
   end,
 }

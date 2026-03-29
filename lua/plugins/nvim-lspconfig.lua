@@ -217,24 +217,28 @@ return {
       html = {},
       lemminx = {}, --XML/XAML
       ts_ls = {
-        javascript = {
-          semanticTokens = { enable = 'all' },
-          implementationsCodeLens = {
-            enabled = true,
+        settings = {
+          javascript = {
+            preferences = {
+              importModuleSpecifierPreference = 'relative',
+            },
+            semanticTokens = { enable = 'all' },
+            implementationsCodeLens = { enabled = true },
+            referencesCodeLens = {
+              enabled = true,
+              showOnAllFunctions = true,
+            },
           },
-          referencesCodeLens = {
-            enabled = true,
-            showOnAllFunctions = true,
-          },
-        },
-        typescript = {
-          semanticTokens = { enable = 'all' },
-          implementationsCodeLens = {
-            enabled = true,
-          },
-          referencesCodeLens = {
-            enabled = true,
-            showOnAllFunctions = true,
+          typescript = {
+            preferences = {
+              importModuleSpecifierPreference = 'relative',
+            },
+            semanticTokens = { enable = 'all' },
+            implementationsCodeLens = { enabled = true },
+            referencesCodeLens = {
+              enabled = true,
+              showOnAllFunctions = true,
+            },
           },
         },
       },
