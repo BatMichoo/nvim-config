@@ -2,6 +2,7 @@ return {
   -- Main LSP Configuration
   'neovim/nvim-lspconfig',
   -- tag = 'v2.3.0',
+  commit = 'dec357e',
   dependencies = {
     -- Automatically install LSPs and related tools to stdpath for Neovim
     -- Mason must be loaded before its dependents so we need to set it up here.

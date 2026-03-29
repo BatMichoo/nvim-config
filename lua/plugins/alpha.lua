@@ -37,8 +37,6 @@ return {
     dashboard.section.header.val = {
       [[                                                                       ]],
       [[                                                                       ]],
-      [[                                                                       ]],
-      [[                                                                       ]],
       [[                                                                     ]],
       [[       ████ ██████           █████      ██                     ]],
       [[      ███████████             █████                             ]],
@@ -49,13 +47,13 @@ return {
       [[ ██████  █████████████████████ ████ █████ █████ ████ ██████ ]],
       [[                                                                       ]],
       [[                                                                       ]],
-      [[                                                                       ]],
     }
 
     dashboard.section.buttons.val = {
       dashboard.button('s', '🛠️  Settings', ":lua require('telescope.builtin').find_files({ cwd = vim.fn.stdpath 'config' })<CR>"),
       dashboard.button('b', '📁  DB', ':DBUI<CR>'),
       dashboard.button('v', '🎮  VimBeGood', ':VimBeGood<CR>'),
+      dashboard.button('g', '   LazyGit', ':LazyGit<CR>'),
       dashboard.button('L', '💤  Lazy', ':Lazy<CR>'),
       dashboard.button('M', '📦  Mason', ':Mason<CR>'),
       dashboard.button('q', '🛑  Quit', ':q<CR>'),
