@@ -218,11 +218,15 @@ return {
       html = {},
       lemminx = {}, --XML/XAML
       ts_ls = {
+        init_options = {
+          preferences = {
+            includeCompletionsForModuleExports = true,
+            includeCompletionsWithInsertText = true,
+            importModuleSpecifierPreference = 'relative',
+          },
+        },
         settings = {
           javascript = {
-            preferences = {
-              importModuleSpecifierPreference = 'relative',
-            },
             semanticTokens = { enable = 'all' },
             implementationsCodeLens = { enabled = true },
             referencesCodeLens = {
@@ -231,9 +235,6 @@ return {
             },
           },
           typescript = {
-            preferences = {
-              importModuleSpecifierPreference = 'relative',
-            },
             semanticTokens = { enable = 'all' },
             implementationsCodeLens = { enabled = true },
             referencesCodeLens = {
