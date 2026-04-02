@@ -54,10 +54,6 @@ return {
         opts = {},
       },
     },
-    -- status = {
-    --   -- Statusline component for LSP progress notifications.
-    --   lsp_progress = { event = 'lsp', kind = 'progress' },
-    -- },
     routes = {
       -- Ignore the typical vim change messages.
       {
