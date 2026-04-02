@@ -44,13 +44,20 @@ return {
       },
       -- Start up errors from Roslyn LSP, filters below not working
       progress = {
+        enabled = false,
+        view = 'notify',
+      },
+      message = {
+        -- Messages shown by lsp servers
         enabled = true,
+        view = 'notify',
+        opts = {},
       },
     },
-    status = {
-      -- Statusline component for LSP progress notifications.
-      lsp_progress = { event = 'lsp', kind = 'progress' },
-    },
+    -- status = {
+    --   -- Statusline component for LSP progress notifications.
+    --   lsp_progress = { event = 'lsp', kind = 'progress' },
+    -- },
     routes = {
       -- Ignore the typical vim change messages.
       {

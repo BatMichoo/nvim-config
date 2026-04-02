@@ -22,7 +22,14 @@ return {
     -- Useful status updates for LSP.
     {
       'j-hui/fidget.nvim',
-      opts = {},
+      opts = {
+        notification = {
+          window = {
+            winblend = 0, -- This makes the window background transparent
+            relative = 'editor', -- Ensures it floats correctly
+          },
+        },
+      },
     },
 
     -- Allows extra capabilities provided by blink.cmp
@@ -220,6 +227,7 @@ return {
       ts_ls = {
         init_options = {
           preferences = {
+            disableSuggestions = true,
             includeCompletionsForModuleExports = true,
             includeCompletionsWithInsertText = true,
             importModuleSpecifierPreference = 'relative',
