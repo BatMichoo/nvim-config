@@ -81,6 +81,7 @@ return {
     --#endregion
     --#region JS
     vim.api.nvim_set_hl(0, '@lsp.typemod.variable.defaultLibrary.javascript', { link = 'Type' })
+    vim.api.nvim_set_hl(0, '@lsp.typemod.variable.defaultLibrary.javascriptreact', { link = 'Type' })
     vim.api.nvim_set_hl(0, '@tag.builtin', { link = '@tag' })
     vim.api.nvim_set_hl(0, '@tag.javascript', { link = 'Type' })
     --#endregion

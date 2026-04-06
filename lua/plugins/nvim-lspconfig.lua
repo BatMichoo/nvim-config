@@ -212,8 +212,9 @@ return {
       },
     }
 
+    local cmp_lsp = require 'cmp_nvim_lsp'
     -- 4. Server Capabilities & Setup
-    local capabilities = require('cmp_nvim_lsp').default_capabilities()
+    local capabilities = vim.tbl_deep_extend('force', {}, vim.lsp.protocol.make_client_capabilities(), cmp_lsp.default_capabilities())
 
     vim.filetype.add {
       extension = { xaml = 'xml' },
