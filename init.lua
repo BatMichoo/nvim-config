@@ -13,6 +13,30 @@ end
 local rtp = vim.opt.rtp
 rtp:prepend(lazypath)
 
-require('lazy').setup 'plugins'
+require('lazy').setup('plugins', {
+  ui = { border = 'rounded' },
+  install = {
+    missing = false,
+  },
+  -- Don't bother me when tweaking plugins.
+  change_detection = { notify = false },
+  -- None of my plugins use luarocks so disable this.
+  rocks = {
+    enabled = false,
+  },
+  performance = {
+    rtp = {
+      -- Stuff I don't use.
+      disabled_plugins = {
+        'gzip',
+        'netrwPlugin',
+        'rplugin',
+        'tarPlugin',
+        'tohtml',
+        'zipPlugin',
+      },
+    },
+  },
+})
 
 -- vim: ts=2 sts=2 sw=2 et

@@ -17,9 +17,6 @@ return {
     formatters_by_ft = {
       lua = { 'stylua' },
 
-      -- C# Support added
-      cs = { 'csharpier' },
-
       -- Go Support (Linux Only)
       go = function(bufnr)
         if vim.fn.has 'win32' == 0 then
