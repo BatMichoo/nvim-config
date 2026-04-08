@@ -17,10 +17,8 @@ return {
     formatters_by_ft = {
       lua = { 'stylua' },
 
-      -- C# Support added
-      cs = { 'csharpier' },
-
       -- Go Support (Linux Only)
+      ---@diagnostic disable-next-line: unused-local
       go = function(bufnr)
         if vim.fn.has 'win32' == 0 then
           return { 'goimports' }

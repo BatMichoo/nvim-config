@@ -2,7 +2,7 @@ return {
   -- Main LSP Configuration
   'neovim/nvim-lspconfig',
   -- tag = 'v2.3.0',
-  commit = 'dec357e',
+  -- commit = 'dec357e',
   dependencies = {
     -- Automatically install LSPs and related tools to stdpath for Neovim
     -- Mason must be loaded before its dependents so we need to set it up here.
@@ -214,7 +214,8 @@ return {
 
     local cmp_lsp = require 'cmp_nvim_lsp'
     -- 4. Server Capabilities & Setup
-    local capabilities = vim.tbl_deep_extend('force', {}, vim.lsp.protocol.make_client_capabilities(), cmp_lsp.default_capabilities())
+    local capabilities = cmp_lsp.default_capabilities()
+    -- local capabilities = vim.tbl_deep_extend('force', {}, vim.lsp.protocol.make_client_capabilities(), cmp_lsp.default_capabilities())
 
     vim.filetype.add {
       extension = { xaml = 'xml' },
