@@ -8,10 +8,6 @@ return {
     local linters_by_ft = {
       markdown = { 'markdownlint' },
       dockerfile = { 'hadolint' },
-      -- javascript = { 'eslint_d' },
-      -- typescript = { 'eslint_d' },
-      -- javascriptreact = { 'eslint_d' },
-      -- typescriptreact = { 'eslint_d' },
     }
 
     -- 2. Conditional Go Support (Linux Only)

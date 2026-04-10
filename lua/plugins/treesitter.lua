@@ -2,16 +2,17 @@ return {
   -- Highlight, edit, and navigate code
   'nvim-treesitter/nvim-treesitter',
   build = ':TSUpdate',
+  event = { 'BufReadPost', 'BufNewFile' },
   lazy = false,
-  -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
-  init = function()
-    local ensure_installed = {
+  opts = {
+    ensure_installed = {
       'bash',
       'c',
       'c_sharp',
       'go',
       'diff',
       'html',
+      'css',
       'javascript',
       'typescript',
       'lua',
@@ -22,32 +23,31 @@ return {
       'vim',
       'vimdoc',
       'yaml',
+      'xml',
       'json',
       'json5',
-    }
-
-    local alreadyInstalled = require('nvim-treesitter.config').get_installed()
-    local parsersToInstall = vim
-      .iter(ensure_installed)
-      :filter(function(parser)
-        return not vim.tbl_contains(alreadyInstalled, parser)
-      end)
-      :totable()
-    require('nvim-treesitter').install(parsersToInstall)
-
-    vim.api.nvim_create_autocmd('FileType', {
-      callback = function()
-        -- Enable treesitter highlighting and disable regex syntax
-        pcall(vim.treesitter.start)
-        -- -- Enable treesitter-based indentation
-        -- vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-      end,
-    })
-  end,
-  -- There are additional nvim-treesitter modules that you can use to interact
-  -- with nvim-treesitter. You should go explore a few and see what interests you:
+    },
+    -- Autoinstall languages that are not installed
+    auto_install = true,
+    highlight = {
+      enable = true,
+      -- Some languages depend on vim's regex highlighting system (such as Ruby) for indent rules.
+      --  If you are experiencing weird indenting issues, add the language to
+      --  the list of additional_vim_regex_highlighting and disabled languages for indent.
+      additional_vim_regex_highlighting = { 'ruby' },
+    },
+    indent = { enable = true, disable = { 'ruby' } },
+  },
+  -- config = function(_, opts)
+  --   -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
+  --   ---@diagnostic disable-next-line: missing-fields
+  --   require('nvim-treesitter.configs').setup(opts)
   --
-  --    - Incremental selection: Included, see `:help nvim-treesitter-incremental-selection-mod`
-  --    - Show your current context: https://github.com/nvim-treesitter/nvim-treesitter-context
-  --    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
+  --   -- There are additional nvim-treesitter modules that you can use to interact
+  --   -- with nvim-treesitter. You should go explore a few and see what interests you:
+  --   --
+  --   --    - Incremental selection: Included, see `:help nvim-treesitter-incremental-selection-mod`
+  --   --    - Show your current context: https://github.com/nvim-treesitter/nvim-treesitter-context
+  --   --    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
+  -- end,
 }

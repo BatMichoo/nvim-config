@@ -14,10 +14,11 @@ return {
       options = {
         theme = custom_auto,
         globalstatus = true,
-        sections = {
-          lualine_a = { 'mode', job_indicator },
-        },
       },
+      sections = {
+        lualine_a = { 'mode', job_indicator },
+      },
+
       -- If you have custom sections, ensure your a and z sections are indeed the outermost
       -- For example, if you overrode sections:
       -- sections = {
