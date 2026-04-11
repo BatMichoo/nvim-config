@@ -1,3 +1,27 @@
+local gemini_acp_config = function()
+  return require('codecompanion.adapters').extend('gemini_cli', {})
+end
+
+local gemini_http_config = function()
+  local creds_file = vim.fn.expand '~/.gemini/oauth_creds.json'
+  local token = nil
+  if vim.fn.filereadable(creds_file) == 1 then
+    local content = vim.fn.readfile(creds_file)
+    local ok, creds = pcall(vim.fn.json_decode, table.concat(content, ''))
+    if ok and creds and creds.access_token then
+      token = creds.access_token
+    end
+  end
+
+  return require('codecompanion.adapters').extend('gemini', {
+    schema = {
+      model = {
+        default = 'gemini-3-flash',
+      },
+    },
+  })
+end
+
 return {
   'olimorris/codecompanion.nvim',
   dependencies = {
@@ -13,25 +37,24 @@ return {
     -- Dedicated chat buffer
     { '<leader>cc', '<cmd>CodeCompanionChat Toggle<cr>', mode = { 'n', 'v' }, desc = 'CodeCompanion Chat', silent = true },
     -- Agentic Workflow
-    { '<leader>cg', '<cmd>CodeCompanion /Agent<cr>', mode = 'n', desc = 'CodeCompanion Agent Workflow', silent = true },
+    -- { '<leader>cg', '<cmd>CodeCompanion /Agent<cr>', mode = 'n', desc = 'CodeCompanion Agent Workflow', silent = true },
     -- CLI interaction
     { '<leader>ct', '<cmd>CodeCompanionCLI agent=gemini_cli<cr>', mode = 'n', desc = 'CodeCompanion CLI', silent = true },
   },
   opts = {
     adapters = {
-      gemini_cli = function()
-        return require('codecompanion.adapters').extend('gemini_cli', {
-          env = {
-            oauth_credentials_path = vim.fn.expand '~/.gemini/oauth_creds.json',
-          },
-        })
-      end,
+      http = {
+        gemini = gemini_http_config,
+      },
+      acp = {
+        gemini_cli = gemini_acp_config,
+      },
     },
     interactions = {
-      chat = {
-        adapter = 'gemini_cli',
-      },
       inline = {
+        adapter = 'gemini',
+      },
+      chat = {
         adapter = 'gemini_cli',
       },
       agent = {
@@ -53,25 +76,41 @@ return {
         },
       },
     },
-    prompt_library = {
-      ['Agent'] = {
-        strategy = 'chat',
-        description = 'Agentic workflow with access to tools',
-        opts = {
-          is_slash_cmd = true,
-          short_name = 'agent',
-          auto_submit = true,
-          stop_context_insertion = true,
-          user_prompt = false,
-        },
-        prompts = {
+    rules = {
+      default = {
+        description = 'Strict AI behavior rules based on user instructions and project guidelines',
+        files = {
+          '~/.config/nvim/ai_rules.md',
           {
-            role = 'system',
-            content = 'You are an expert AI agent with access to various tools. Help the user with their task by using the available tools effectively.',
-            opts = {
-              visible = false,
+            path = vim.fn.getcwd(),
+            files = {
+              'AGENT.md',
+              'AGENTS.md',
+              '.rules',
+              '.cursorrules',
+              '.clinerules',
+              '.windsurfrules',
             },
           },
+        },
+        is_preset = true,
+      },
+      opts = {
+        chat = {
+          autoload = 'default',
+          enabled = true,
+        },
+        inline = {
+          autoload = 'default',
+          enabled = true,
+        },
+        cli = {
+          autoload = 'default',
+          enabled = true,
+        },
+        agent = {
+          autoload = 'default',
+          enabled = true,
         },
       },
     },
@@ -83,7 +122,7 @@ return {
       cli = {
         window = {
           layout = 'vertical',
-          width = 0.45,
+          width = 0.35,
         },
       },
     },
