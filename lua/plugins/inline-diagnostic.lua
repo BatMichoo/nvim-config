@@ -9,11 +9,11 @@ return {
       options = {
         show_source = {
           enabled = true,
-          if_many = true,
+          if_many = false,
         },
         use_icons_from_diagnostic = true,
       },
     }
-    vim.diagnostic.config { virtual_text = false } -- Disable default virtual text
+    -- vim.diagnostic.config { virtual_text = false } -- Disable default virtual text
   end,
 }

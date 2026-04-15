@@ -14,7 +14,9 @@ return {
       'html',
       'css',
       'javascript',
+      'jsx',
       'typescript',
+      'tsx',
       'lua',
       'luadoc',
       'markdown',
@@ -28,7 +30,7 @@ return {
       'json5',
     },
     -- Autoinstall languages that are not installed
-    auto_install = true,
+    -- auto_install = true,
     highlight = {
       enable = true,
       -- Some languages depend on vim's regex highlighting system (such as Ruby) for indent rules.

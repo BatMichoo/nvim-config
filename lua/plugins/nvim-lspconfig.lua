@@ -23,7 +23,7 @@ return {
     -- 1. Diagnostics Config
     vim.diagnostic.config {
       severity_sort = true,
-      float = { border = 'rounded', source = 'if_many' },
+      float = { border = 'rounded', source = 'always' }, -- Show source to identify duplicate producers
       underline = { severity = vim.diagnostic.severity.ERROR },
       signs = vim.g.have_nerd_font and {
         text = {
@@ -33,11 +33,7 @@ return {
           [vim.diagnostic.severity.HINT] = '󰌶',
         },
       } or {},
-      virtual_text = {
-        source = 'if_many',
-        spacing = 2,
-        overflow = 'scroll',
-      },
+      virtual_text = false, -- Disable default virtual text to avoid duplication with tiny-inline-diagnostic
     }
 
     -- 2. Capabilities & Servers
@@ -109,7 +105,8 @@ return {
         function(server_name)
           local server = servers[server_name] or {}
           server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-          require('lspconfig')[server_name].setup(server)
+          vim.lsp.config[server_name] = server
+          vim.lsp.enable(server_name)
         end,
       },
     }
