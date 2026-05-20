@@ -64,9 +64,9 @@ return {
         agent = 'gemini_cli',
         agents = {
           gemini_cli = {
-            cmd = 'gemini',
+            cmd = 'agy',
             args = {},
-            description = 'Gemini CLI',
+            description = 'Antigravity CLI',
             provider = 'terminal',
           },
         },
@@ -75,6 +75,21 @@ return {
           reload = true,
         },
       },
+      -- cli = {
+      --   agent = 'gemini_cli',
+      --   agents = {
+      --     gemini_cli = {
+      --       cmd = 'gemini',
+      --       args = {},
+      --       description = 'Gemini CLI',
+      --       provider = 'terminal',
+      --     },
+      --   },
+      --   opts = {
+      --     auto_insert = true,
+      --     reload = true,
+      --   },
+      -- },
     },
     rules = {
       default = {

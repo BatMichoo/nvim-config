@@ -18,11 +18,9 @@ rtp:prepend(lazypath)
 require('lazy').setup('plugins', {
   ui = { border = 'rounded' },
   install = {
-    missing = false,
+    missing = true,
   },
-  -- Don't bother me when tweaking plugins.
   change_detection = { notify = false },
-  -- None of my plugins use luarocks so disable this.
   rocks = {
     enabled = false,
   },

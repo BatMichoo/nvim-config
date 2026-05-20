@@ -1,15 +1,11 @@
 return {
   'nvim-neotest/neotest',
-  commit = '52fca6717ef972113ddd6ca223e30ad0abb2800c',
-  requires = {
-    {
-      'Issafalcon/neotest-dotnet',
-    },
-  },
+  -- commit = '52fca6717ef972113ddd6ca223e30ad0abb2800c',
   config = function()
     require('neotest').setup {
       adapters = {
-        require 'neotest-dotnet',
+        require 'neotest-dotnet' {},
+        require 'neotest-golang' {},
       },
     }
   end,
@@ -18,6 +14,8 @@ return {
     'nvim-lua/plenary.nvim',
     'antoinemadec/FixCursorHold.nvim',
     'nvim-treesitter/nvim-treesitter',
+    'fredrikaverpil/neotest-golang',
+    'Issafalcon/neotest-dotnet',
   },
   keys = {
     -- Run all tests in the current file

@@ -80,7 +80,10 @@ return {
       servers.htmx = { filetypes = { 'html' } }
       servers.dockerls = {}
       servers.docker_compose_language_service = { filetypes = { 'yaml.docker-compose' } }
-      servers.gopls = {}
+      servers.gopls = {
+        semanticTokens = true,
+        ['ui.diagnostic.diagnosticsTrigger'] = 'Edit',
+      }
       servers.sqls = {}
     end
 

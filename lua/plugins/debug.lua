@@ -164,12 +164,12 @@ return {
       silent = true,
       desc = 'Debug: Nearest Unit Test',
     },
-    {
-      '<leader>da',
-      "<Cmd>lua require('neotest').run.run({strategy = 'dap', suite = true})<CR>",
-      noremap = true,
-      silent = true,
-      desc = 'Debug: All Unit Tests',
-    },
+    -- {
+    --   '<leader>da',
+    --   "<Cmd>lua require('neotest').run.run({strategy = 'dap', suite = true})<CR>",
+    --   noremap = true,
+    --   silent = true,
+    --   desc = 'Debug: All Unit Tests',
+    -- },
   },
 }
