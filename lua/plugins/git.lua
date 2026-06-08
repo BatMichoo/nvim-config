@@ -16,10 +16,15 @@ return {
   config = function()
     require('telescope').load_extension 'lazygit'
 
-    -- Check if Neovim was opened in the home directory, and configure lazygit for dotfiles bare repo
-    if vim.fn.getcwd() == vim.fn.expand("$HOME") then
-      vim.fn.setenv("GIT_DIR", vim.fn.expand("$HOME/.dotfiles"))
-      vim.fn.setenv("GIT_WORK_TREE", vim.fn.expand("$HOME"))
+    -- Configure lazygit for dotfiles bare repo if we are inside $HOME and NOT in another git repo
+    local cwd = vim.fn.getcwd()
+    local home = vim.fn.expand("$HOME")
+    if string.find(cwd, home, 1, true) == 1 then
+      vim.fn.system("git rev-parse --is-inside-work-tree 2>/dev/null")
+      if vim.v.shell_error ~= 0 then
+        vim.fn.setenv("GIT_DIR", home .. "/.dotfiles")
+        vim.fn.setenv("GIT_WORK_TREE", home)
+      end
     end
   end,
   keys = {
