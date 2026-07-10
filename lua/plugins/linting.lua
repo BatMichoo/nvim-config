@@ -11,7 +11,7 @@ return {
     }
 
     -- 2. Conditional Go Support (Linux Only)
-    if vim.fn.has 'win32' == 0 then
+    if require('utils').is_linux then
       linters_by_ft.go = { 'golangcilint' }
     end
 

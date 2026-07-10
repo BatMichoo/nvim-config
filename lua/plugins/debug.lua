@@ -3,9 +3,7 @@
 -- Shows how to use the DAP plugin to debug your code.
 
 return {
-  -- NOTE: Yes, you can install new plugins here!
   'mfussenegger/nvim-dap',
-  -- NOTE: And you can specify dependencies as well
   dependencies = {
     -- Creates a beautiful debugger UI
     'rcarriga/nvim-dap-ui',
@@ -23,6 +21,7 @@ return {
   config = function()
     local dap = require 'dap'
     local dapui = require 'dapui'
+    local isLinux = require('utils').is_linux
 
     dap.listeners.before.attach.dapui_config = function()
       vim.cmd 'Neotree close'
@@ -41,7 +40,7 @@ return {
       dapui.close()
     end
 
-    if vim.fn.has 'win32' == 0 then
+    if isLinux then
       require('dap-go').setup {}
     end
     require('dap-cs').setup {}

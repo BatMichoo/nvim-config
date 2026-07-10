@@ -20,7 +20,7 @@ return {
       -- Go Support (Linux Only)
       ---@diagnostic disable-next-line: unused-local
       go = function(bufnr)
-        if vim.fn.has 'win32' == 0 then
+        if require('utils').is_linux then
           return { 'goimports' }
         end
         return {}

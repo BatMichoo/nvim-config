@@ -5,7 +5,7 @@ return {
   config = function()
     require('tiny-inline-diagnostic').setup {
       preset = 'minimal',
-      transparent_bg = vim.fn.has 'win32' == 0,
+      transparent_bg = require('utils').is_linux,
       options = {
         show_source = {
           enabled = true,
