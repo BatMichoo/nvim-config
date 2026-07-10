@@ -69,7 +69,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     -- Keymaps
     map('grn', vim.lsp.buf.rename, '[R]e[n]ame')
     map('gra', vim.lsp.buf.code_action, 'Code [A]ction', { 'n', 'x' })
-    map('grl', '<cmd> lua vim.lsp.codelens.refresh()<CR>', 'Refresh Code lens')
+    map('grl', vim.lsp.codelens.run, 'Run Code [L]ens')
     map('grr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
     map('gri', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
     map('grd', require('telescope.builtin').lsp_definitions, '[G]oto [D]edefinition')
@@ -108,6 +108,21 @@ vim.api.nvim_create_autocmd('LspAttach', {
       map('<leader>th', function()
         vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf })
       end, '[T]oggle Inlay [H]ints')
+    end
+
+    -- Code Lens
+    if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_codeLens) then
+      vim.lsp.codelens.enable(true, { bufnr = event.buf })
+      map('<leader>tl', function()
+        vim.lsp.codelens.enable(not vim.lsp.codelens.is_enabled { bufnr = event.buf }, { bufnr = event.buf })
+      end, '[T]oggle Code [L]ens')
+
+      vim.api.nvim_create_autocmd({ 'BufEnter', 'InsertLeave' }, {
+        buffer = event.buf,
+        callback = function()
+          vim.lsp.codelens.enable(true, { bufnr = event.buf })
+        end,
+      })
     end
   end,
 })
