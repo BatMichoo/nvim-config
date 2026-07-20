@@ -43,28 +43,7 @@ return {
       cssls = {},
       html = {},
       lemminx = {}, -- XML/XAML
-      ts_ls = {
-        init_options = {
-          preferences = {
-            disableSuggestions = true,
-            includeCompletionsForModuleExports = true,
-            includeCompletionsWithInsertText = true,
-            importModuleSpecifierPreference = 'relative',
-          },
-        },
-        settings = {
-          javascript = {
-            semanticTokens = { enable = 'all' },
-            implementationsCodeLens = { enabled = true },
-            referencesCodeLens = { enabled = true, showOnAllFunctions = true },
-          },
-          typescript = {
-            semanticTokens = { enable = 'all' },
-            implementationsCodeLens = { enabled = true },
-            referencesCodeLens = { enabled = true, showOnAllFunctions = true },
-          },
-        },
-      },
+      tsgo = {},
       lua_ls = {
         settings = {
           Lua = {
