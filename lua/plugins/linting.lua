@@ -4,16 +4,8 @@ return {
   config = function()
     local lint = require 'lint'
 
-    -- 1. Base Configuration
-    local linters_by_ft = {
-      markdown = { 'markdownlint' },
-      dockerfile = { 'hadolint' },
-    }
-
-    -- 2. Conditional Go Support (Linux Only)
-    if require('utils').is_linux then
-      linters_by_ft.go = { 'golangcilint' }
-    end
+    -- 1. Configuration
+    local linters_by_ft = require('lsp.linters').get_by_filetype()
 
     lint.linters_by_ft = linters_by_ft
 

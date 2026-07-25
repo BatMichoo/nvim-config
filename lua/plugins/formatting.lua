@@ -14,30 +14,7 @@ return {
   },
   opts = {
     log_level = vim.log.levels.DEBUG,
-    formatters_by_ft = {
-      lua = { 'stylua' },
-
-      -- Go Support (Linux Only)
-      ---@diagnostic disable-next-line: unused-local
-      go = function(bufnr)
-        if require('utils').is_linux then
-          return { 'goimports' }
-        end
-        return {}
-      end,
-
-      -- Web Stack
-      javascript = { 'prettier' },
-      typescript = { 'prettier' },
-      javascriptreact = { 'prettier' },
-      typescriptreact = { 'prettier' },
-      css = { 'prettier' },
-      html = { 'prettier' },
-      json = { 'prettier' },
-      yaml = { 'prettier' },
-
-      markdown = { 'prettier' },
-    },
+    formatters_by_ft = require('lsp.formatters').get_by_filetype(),
 
     format_on_save = {
       timeout_ms = 500,

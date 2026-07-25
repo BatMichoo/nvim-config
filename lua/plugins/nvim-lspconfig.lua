@@ -39,41 +39,9 @@ return {
     -- 2. Capabilities & Servers
     local capabilities = vim.tbl_deep_extend('force', {}, vim.lsp.protocol.make_client_capabilities(), cmp_lsp.default_capabilities())
 
-    local servers = {
-      cssls = {},
-      html = {},
-      lemminx = {}, -- XML/XAML
-      tsgo = {},
-      lua_ls = {
-        settings = {
-          Lua = {
-            completion = { callSnippet = 'Replace' },
-          },
-        },
-      },
-      jsonls = {},
-      eslint = {},
-    }
-
-    if utils.is_linux then
-      servers.htmx = { filetypes = { 'html' } }
-      servers.dockerls = {}
-      servers.docker_compose_language_service = { filetypes = { 'yaml.docker-compose' } }
-      servers.gopls = {
-        semanticTokens = true,
-        ['ui.diagnostic.diagnosticsTrigger'] = 'Edit',
-      }
-      servers.sqls = {}
-    end
-
-    -- 3. Mason Setup
-    local linters = { 'hadolint', 'markdownlint' }
-    local formatters = { 'stylua', 'prettier' }
-
-    if utils.is_linux then
-      table.insert(linters, 'golangci-lint')
-      table.insert(formatters, 'goimports')
-    end
+    local servers = require('lsp.servers').get()
+    local linters = require('lsp.linters').get()
+    local formatters = require('lsp.formatters').get()
 
     local ensure_installed = vim.tbl_keys(servers)
     vim.list_extend(ensure_installed, linters)
