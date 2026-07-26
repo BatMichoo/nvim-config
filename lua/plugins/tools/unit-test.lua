@@ -1,11 +1,11 @@
 return {
   'nvim-neotest/neotest',
-  -- commit = '52fca6717ef972113ddd6ca223e30ad0abb2800c',
   config = function()
     require('neotest').setup {
       adapters = {
         require 'neotest-dotnet' {},
         require 'neotest-golang' {},
+        require 'neotest-vitest' {},
       },
     }
   end,
@@ -16,6 +16,7 @@ return {
     'nvim-treesitter/nvim-treesitter',
     'fredrikaverpil/neotest-golang',
     'Issafalcon/neotest-dotnet',
+    'marilari88/neotest-vitest',
   },
   keys = {
     -- Run all tests in the current file
