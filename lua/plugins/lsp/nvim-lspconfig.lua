@@ -2,22 +2,12 @@ return {
   -- Main LSP Configuration
   'neovim/nvim-lspconfig',
   dependencies = {
-    {
-      'mason-org/mason.nvim',
-      opts = {
-        registries = {
-          'github:mason-org/mason-registry',
-          'github:Crashdummyy/mason-registry',
-        },
-      },
-    },
+    'mason-org/mason.nvim',
     'mason-org/mason-lspconfig.nvim',
-    'WhoIsSethDaniel/mason-tool-installer.nvim',
     { 'j-hui/fidget.nvim', opts = {} },
     'hrsh7th/cmp-nvim-lsp',
   },
   config = function()
-    local utils = require 'utils'
     local cmp_lsp = require 'cmp_nvim_lsp'
 
     -- 1. Diagnostics Config
@@ -38,17 +28,7 @@ return {
 
     -- 2. Capabilities & Servers
     local capabilities = vim.tbl_deep_extend('force', {}, vim.lsp.protocol.make_client_capabilities(), cmp_lsp.default_capabilities())
-
     local servers = require('lsp.servers').get()
-    local linters = require('lsp.linters').get()
-    local formatters = require('lsp.formatters').get()
-
-    local ensure_installed = vim.tbl_keys(servers)
-    vim.list_extend(ensure_installed, linters)
-    vim.list_extend(ensure_installed, formatters)
-    table.insert(ensure_installed, 'roslyn')
-
-    require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
     require('mason-lspconfig').setup {
       handlers = {
