@@ -15,7 +15,13 @@ end
 local rtp = vim.opt.rtp
 rtp:prepend(lazypath)
 
-require('lazy').setup('plugins', {
+require('lazy').setup({
+  { import = 'plugins.ui' },
+  { import = 'plugins.editor' },
+  { import = 'plugins.lsp' },
+  { import = 'plugins.git' },
+  { import = 'plugins.tools' },
+}, {
   ui = { border = 'rounded' },
   install = {
     missing = true,

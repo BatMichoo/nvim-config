@@ -5,8 +5,8 @@ return {
     local custom_auto = require 'lualine.themes.auto'
 
     custom_auto.normal.a.bg = '#007ACC'
-    custom_auto.normal.b.fg = '#007ACC'
     custom_auto.normal.a.fg = '#E5E5E5'
+    custom_auto.normal.b.fg = '#007ACC'
 
     local job_indicator = { require('easy-dotnet.ui-modules.jobs').lualine }
 

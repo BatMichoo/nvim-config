@@ -1,0 +1,28 @@
+return function(p)
+  local hl = vim.api.nvim_set_hl
+
+  -- Base Tree-sitter Groups (Single Source of Truth for colors)
+  hl(0, '@type', { fg = p.type })
+  hl(0, '@type.interface', { fg = p.interface })
+  hl(0, '@type.struct', { fg = p.struct })
+  hl(0, '@variable', { fg = p.variable })
+  hl(0, '@property', { fg = p.property })
+  hl(0, '@variable.member', { fg = p.property })
+  hl(0, '@function', { fg = p.method })
+  hl(0, '@keyword', { fg = p.keyword })
+  hl(0, '@keyword.control', { fg = p.control_keyword })
+
+  -- Global LSP Semantic Token Groups (Linked to Base Groups)
+  hl(0, '@lsp.type.type', { link = '@type' })
+  hl(0, '@lsp.type.class', { link = '@type' })
+  hl(0, '@lsp.type.interface', { link = '@type.interface' })
+  hl(0, '@lsp.type.struct', { link = '@type.struct' })
+  hl(0, '@lsp.type.variable', { link = '@variable' })
+  hl(0, '@lsp.type.property', { link = '@property' })
+  hl(0, '@lsp.type.field', { link = '@property' })
+  hl(0, '@lsp.type.parameter', { link = '@variable' })
+  hl(0, '@lsp.type.method', { link = '@function' })
+  hl(0, '@lsp.type.function', { link = '@function' })
+  hl(0, '@lsp.type.keyword', { link = '@keyword' })
+  hl(0, '@lsp.type.controlKeyword', { link = '@keyword.control' })
+end
