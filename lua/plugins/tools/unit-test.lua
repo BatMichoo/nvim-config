@@ -2,11 +2,7 @@ return {
   'nvim-neotest/neotest',
   config = function()
     require('neotest').setup {
-      adapters = {
-        require 'neotest-dotnet' {},
-        require 'neotest-golang' {},
-        require 'neotest-vitest' {},
-      },
+      adapters = require('testing').get(),
     }
   end,
   dependencies = {
