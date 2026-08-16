@@ -3,7 +3,7 @@ return {
   cmd = { 'CccPick', 'CccConvert', 'CccHighlighterEnable', 'CccHighlighterDisable' },
 
   keys = {
-    { '<leader>cp', '<cmd>CccPick<cr>', desc = 'Color Picker' },
+    { '<leader>cP', '<cmd>CccPick<cr>', desc = 'Color Picker' },
   },
 
   -- Configuration for ccc.nvim

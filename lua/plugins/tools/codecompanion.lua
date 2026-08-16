@@ -39,7 +39,16 @@ return {
     -- Agentic Workflow
     -- { '<leader>cg', '<cmd>CodeCompanion /Agent<cr>', mode = 'n', desc = 'CodeCompanion Agent Workflow', silent = true },
     -- CLI interaction
-    { '<leader>ct', '<cmd>CodeCompanionCLI agent=gemini_cli<cr>', mode = 'n', desc = 'CodeCompanion CLI', silent = true },
+    { '<leader>ct', '<cmd>CodeCompanionCLI agent=claude_code<cr>', mode = 'n', desc = 'CodeCompanion CLI', silent = true },
+    -- CLI prompt diagnostics
+    { '<leader>cpde', '<cmd>CodeCompanionCLI! Explain #{diagnostics}<cr>', mode = 'n', desc = 'CodeCompanion Prompt Diagnostics (Explain)', silent = true },
+    { '<leader>cpdf', '<cmd>CodeCompanionCLI! Fix #{diagnostics}<cr>', mode = 'n', desc = 'CodeCompanion Prompt Diagnostics (Fix)', silent = true },
+    -- CLI prompt diff
+    { '<leader>cprv', '<cmd>CodeCompanionCLI! Review #{diff}<cr>', mode = 'n', desc = 'CodeCompanion Prompt Diff (Review)', silent = true },
+    { '<leader>cppr', '<cmd>CodeCompanionCLI! Create a PR for #{diff} using the gh CLI<cr>', mode = 'n', desc = 'CodeCompanion Prompt Diff (Create PR)', silent = true },
+    -- CLI prompt buffer
+    { '<leader>cpbe', '<cmd>CodeCompanionCLI! Explain #{buffer}<cr>', mode = 'n', desc = 'CodeCompanion Prompt Buffer (Explain)', silent = true },
+    { '<leader>cpbt', '<cmd>CodeCompanionCLI! Write tests for #{buffer}<cr>', mode = 'n', desc = 'CodeCompanion Prompt Buffer (Test)', silent = true },
   },
   opts = {
     adapters = {
@@ -55,7 +64,7 @@ return {
         adapter = 'gemini',
       },
       chat = {
-        adapter = 'gemini_cli',
+        adapter = 'claude_code',
       },
       agent = {
         adapter = 'gemini_cli',
@@ -67,6 +76,12 @@ return {
             cmd = 'agy',
             args = {},
             description = 'Antigravity CLI',
+            provider = 'terminal',
+          },
+          claude_code = {
+            cmd = 'claude',
+            args = {},
+            description = 'Claude Code CLI',
             provider = 'terminal',
           },
         },

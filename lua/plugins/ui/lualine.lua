@@ -1,3 +1,8 @@
+local filetype_names = {
+  javascriptreact = 'React JS',
+  typescriptreact = 'React TS',
+}
+
 return {
   'nvim-lualine/lualine.nvim',
   dependencies = { 'nvim-tree/nvim-web-devicons' },
@@ -17,6 +22,14 @@ return {
       },
       sections = {
         lualine_a = { 'mode', job_indicator },
+        lualine_x = {
+          {
+            'filetype',
+            fmt = function(str)
+              return filetype_names[str] or str
+            end,
+          },
+        },
       },
 
       -- If you have custom sections, ensure your a and z sections are indeed the outermost

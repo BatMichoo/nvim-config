@@ -22,6 +22,7 @@ vim.api.nvim_create_autocmd('FileType', {
     'css',
     'html',
     'json',
+    'jsonc',
     'yaml',
   },
   callback = function()
@@ -68,7 +69,34 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
     -- Keymaps
     map('grn', vim.lsp.buf.rename, '[R]e[n]ame')
-    map('gra', vim.lsp.buf.code_action, 'Code [A]ction', { 'n', 'x' })
+    map('gra', function()
+      -- Some servers (e.g. tsc) only return whole-file source actions like
+      -- organize/sort/remove-unused-imports and fixAll when explicitly asked
+      -- via context.only. Only opt into that filter on buffers where a server
+      -- actually advertises 'source' kinds, so every other filetype keeps
+      -- today's fully unfiltered request (which also surfaces actions with
+      -- no `kind` at all). Note: tsc double-emits source.* actions if '' is
+      -- included in `only`, so leave that out here.
+      local has_source_kind = false
+      for _, c in ipairs(vim.lsp.get_clients { bufnr = event.buf }) do
+        local kinds = vim.tbl_get(c.server_capabilities, 'codeActionProvider', 'codeActionKinds') or {}
+        for _, k in ipairs(kinds) do
+          if k == 'source' or vim.startswith(k, 'source.') then
+            has_source_kind = true
+            break
+          end
+        end
+        if has_source_kind then
+          break
+        end
+      end
+
+      if has_source_kind then
+        vim.lsp.buf.code_action { context = { only = { 'quickfix', 'refactor', 'source' } } }
+      else
+        vim.lsp.buf.code_action()
+      end
+    end, 'Code [A]ction', { 'n', 'x' })
     map('grl', vim.lsp.codelens.run, 'Run Code [L]ens')
     map('grr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
     map('gri', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
