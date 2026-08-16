@@ -10,7 +10,7 @@ function M.scan(dir, handler)
   local files = vim.api.nvim_get_runtime_file(pattern, true)
 
   for _, file in ipairs(files) do
-    local mod_name = file:match '([^/]+)%.lua$'
+    local mod_name = file:match '([^/\\]+)%.lua$'
     if mod_name and mod_name ~= 'init' then
       local ok, res = pcall(require, prefix .. mod_name)
       if ok then
