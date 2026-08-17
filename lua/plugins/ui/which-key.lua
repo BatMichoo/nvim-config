@@ -53,6 +53,9 @@ return {              -- Useful plugin to show you pending keybinds.
       { '<leader>cp', group = '[P]rompts' },
       { '<leader>cpd', group = '[D]iagnostics' },
       { '<leader>cpb', group = '[B]uffer' },
+      { '<leader>t', group = '[T]est' },
+      { '<leader>T', group = '[T]oggle' },
+      { '<leader>d', group = '[D]ebug' },
     },
   },
 }

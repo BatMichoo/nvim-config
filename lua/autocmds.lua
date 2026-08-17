@@ -133,7 +133,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
     -- Inlay Hints
     if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
-      map('<leader>th', function()
+      map('<leader>Th', function()
         vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf })
       end, '[T]oggle Inlay [H]ints')
     end
@@ -141,7 +141,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     -- Code Lens
     if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_codeLens) then
       vim.lsp.codelens.enable(true, { bufnr = event.buf })
-      map('<leader>tl', function()
+      map('<leader>Tl', function()
         vim.lsp.codelens.enable(not vim.lsp.codelens.is_enabled { bufnr = event.buf }, { bufnr = event.buf })
       end, '[T]oggle Code [L]ens')
 
