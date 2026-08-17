@@ -13,6 +13,7 @@ return {
     'fredrikaverpil/neotest-golang',
     'Issafalcon/neotest-dotnet',
     'marilari88/neotest-vitest',
+    'nvim-neotest/neotest-jest',
   },
   keys = {
     -- Run all tests in the current file
