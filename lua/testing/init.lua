@@ -4,10 +4,11 @@ local loader = require 'utils.loader'
 function M.get()
   local adapters = {}
   loader.scan('testing', function(_, config)
-    if type(config) == 'function' then
-      table.insert(adapters, config())
-    elseif type(config) == 'table' then
-      table.insert(adapters, config)
+    local adapter = config.adapter
+    if type(adapter) == 'function' then
+      table.insert(adapters, adapter())
+    elseif type(adapter) == 'table' then
+      table.insert(adapters, adapter)
     end
   end)
   return adapters

@@ -1,3 +1,5 @@
-return function()
-  return require 'neotest-vitest' {}
-end
+return {
+  adapter = function()
+    return require 'neotest-vitest' {}
+  end,
+}

@@ -1,3 +1,5 @@
-return function()
-  return require 'neotest-dotnet' {}
-end
+return {
+  adapter = function()
+    return require 'neotest-dotnet' {}
+  end,
+}
