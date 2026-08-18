@@ -16,7 +16,6 @@ return {
   config = function()
     local dap = require 'dap'
     local dapui = require 'dapui'
-    local isLinux = require('utils').is_linux
 
     dap.listeners.before.attach.dapui_config = function()
       vim.cmd 'Neotree close'
@@ -35,7 +34,7 @@ return {
       dapui.close()
     end
 
-    if isLinux then
+    if require('debugging').is_enabled 'delve' then
       require('dap-go').setup {}
     end
     require('dap-cs').setup {}
