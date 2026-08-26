@@ -45,7 +45,13 @@ return {
     { '<leader>cpdf', '<cmd>CodeCompanionCLI! Fix #{diagnostics}<cr>', mode = 'n', desc = 'CodeCompanion Prompt Diagnostics (Fix)', silent = true },
     -- CLI prompt diff
     { '<leader>cprv', '<cmd>CodeCompanionCLI! Review #{diff}<cr>', mode = 'n', desc = 'CodeCompanion Prompt Diff (Review)', silent = true },
-    { '<leader>cppr', '<cmd>CodeCompanionCLI! Create a PR for #{diff} using the gh CLI<cr>', mode = 'n', desc = 'CodeCompanion Prompt Diff (Create PR)', silent = true },
+    {
+      '<leader>cppr',
+      '<cmd>CodeCompanionCLI! Create a PR for #{diff} using the gh CLI<cr>',
+      mode = 'n',
+      desc = 'CodeCompanion Prompt Diff (Create PR)',
+      silent = true,
+    },
     -- CLI prompt buffer
     { '<leader>cpbe', '<cmd>CodeCompanionCLI! Explain #{buffer}<cr>', mode = 'n', desc = 'CodeCompanion Prompt Buffer (Explain)', silent = true },
     { '<leader>cpbt', '<cmd>CodeCompanionCLI! Write tests for #{buffer}<cr>', mode = 'n', desc = 'CodeCompanion Prompt Buffer (Test)', silent = true },
@@ -70,7 +76,7 @@ return {
         adapter = 'gemini_cli',
       },
       cli = {
-        agent = 'gemini_cli',
+        agent = 'claude_code',
         agents = {
           gemini_cli = {
             cmd = 'agy',
@@ -90,21 +96,6 @@ return {
           reload = true,
         },
       },
-      -- cli = {
-      --   agent = 'gemini_cli',
-      --   agents = {
-      --     gemini_cli = {
-      --       cmd = 'gemini',
-      --       args = {},
-      --       description = 'Gemini CLI',
-      --       provider = 'terminal',
-      --     },
-      --   },
-      --   opts = {
-      --     auto_insert = true,
-      --     reload = true,
-      --   },
-      -- },
     },
     rules = {
       default = {
