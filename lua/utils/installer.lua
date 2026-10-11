@@ -12,7 +12,6 @@ function M.setup()
   vim.list_extend(ensure_installed, linters)
   vim.list_extend(ensure_installed, formatters)
   vim.list_extend(ensure_installed, debuggers)
-  table.insert(ensure_installed, 'roslyn')
 
   require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 end
