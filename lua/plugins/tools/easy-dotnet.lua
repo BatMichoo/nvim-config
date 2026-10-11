@@ -10,7 +10,7 @@ return {
         auto_register_dap = false,
       },
       lsp = {
-        enabled = false,
+        enabled = true,
       },
       test_runner = {
         enable_buffer_test_execution = false,
