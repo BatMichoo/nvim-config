@@ -2,6 +2,7 @@ return {
   -- Highlight, edit, and navigate code
   'nvim-treesitter/nvim-treesitter',
   build = ':TSUpdate',
+  branch = 'main',
   event = { 'BufReadPost', 'BufNewFile' },
   lazy = false,
   config = function()
