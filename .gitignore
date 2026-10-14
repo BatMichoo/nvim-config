@@ -4,5 +4,7 @@ test.sh
 nvim
 lua/dev/
 
+databases.lua
+
 spell/
 lazy-lock.json
