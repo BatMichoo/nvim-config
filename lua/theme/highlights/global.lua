@@ -25,4 +25,9 @@ return function(p)
   hl(0, '@lsp.type.function', { link = '@function' })
   hl(0, '@lsp.type.keyword', { link = '@keyword' })
   hl(0, '@lsp.type.controlKeyword', { link = '@keyword.control' })
+
+  hl(0, 'LspCodeLens', { fg = '#717171', italic = true })
+  hl(0, 'LspCodeLensSeparator', { fg = '#4f5258' })
+
+  hl(0, 'GitSignsCurrentLineBlame', { fg = '#717171', italic = true })
 end

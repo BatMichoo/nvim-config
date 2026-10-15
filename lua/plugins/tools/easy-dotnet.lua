@@ -12,6 +12,10 @@ return {
       lsp = {
         enabled = true,
       },
+      auto_bootstrap_namespace = {
+        type = 'file_scoped',
+        enabled = true,
+      },
       test_runner = {
         enable_buffer_test_execution = false,
       },
