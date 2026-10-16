@@ -119,6 +119,9 @@ return {
     completion = false,
     keymaps = {
       qpad_execute = '<F5>',
+      -- gT/gt are Vim's tab switching; table picker moves to <C-t>
+      table_picker = '<C-t>',
+      table_picker_alt = false,
     },
   },
   config = function(_, opts)
