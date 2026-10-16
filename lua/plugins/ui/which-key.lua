@@ -56,6 +56,7 @@ return {              -- Useful plugin to show you pending keybinds.
       { '<leader>t', group = '[T]est' },
       { '<leader>T', group = '[T]oggle' },
       { '<leader>d', group = '[D]ebug' },
+      { '<leader>D', group = '[D]atabase' },
     },
   },
 }

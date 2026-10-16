@@ -8,3 +8,4 @@ databases.lua
 
 spell/
 lazy-lock.json
+.grip/

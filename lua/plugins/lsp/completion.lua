@@ -45,6 +45,7 @@ return {
           { name = 'easy-dotnet' },
           { name = 'luasnip' }, -- For luasnip users.
           { name = 'vim-dadbod-completion' },
+          { name = 'dadbod_grip' },
         }, {
           { name = 'buffer' },
         }),
