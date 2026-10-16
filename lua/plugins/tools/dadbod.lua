@@ -23,15 +23,24 @@ end
 local DEFAULT_SCHEME = 'sqlserver'
 local DEFAULT_PORT = 1433
 local function build_url(def, host)
+  local auth = vim.deepcopy(def.auth or {})
+  -- Credentials go in user:pass@host; grip ignores ?user=&password= and falls back
+  -- to integrated auth (sqlcmd -E), which Azure SQL rejects
+  local userinfo = ''
+  if auth.user then
+    userinfo = auth.user .. (auth.password and (':' .. auth.password) or '') .. '@'
+  end
+  auth.user, auth.password = nil, nil
+
   -- Sorted so the URL is stable across sessions: grip dedupes connections by URL
-  local keys = vim.tbl_keys(def.auth or {})
+  local keys = vim.tbl_keys(auth)
   table.sort(keys)
   local opts = {}
   for _, k in ipairs(keys) do
-    table.insert(opts, k .. '=' .. def.auth[k])
+    table.insert(opts, k .. '=' .. auth[k])
   end
   local query = #opts > 0 and ('?' .. table.concat(opts, '&')) or ''
-  return ('%s://%s:%d/%s%s'):format(def.scheme or DEFAULT_SCHEME, host, def.port or DEFAULT_PORT, def.db, query)
+  return ('%s://%s%s:%d/%s%s'):format(def.scheme or DEFAULT_SCHEME, userinfo, host, def.port or DEFAULT_PORT, def.db, query)
 end
 
 local function build_connections(data)
@@ -98,7 +107,9 @@ local function map_sql_execute(args)
 end
 
 return {
-  'joryeugene/dadbod-grip.nvim',
+  -- Fork of joryeugene/dadbod-grip.nvim: adds sqlserver authentication= (Entra ID / az login)
+  'BatMichoo/dadbod-grip.nvim',
+  branch = 'feat/sqlserver-entra-auth',
   dependencies = {
     { 'tpope/vim-dadbod', lazy = true },
     { 'kristijanhusak/vim-dadbod-completion', ft = { 'sql', 'mysql', 'plsql' }, lazy = true },
