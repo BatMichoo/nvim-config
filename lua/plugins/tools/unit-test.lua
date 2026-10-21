@@ -11,7 +11,7 @@ return {
     'antoinemadec/FixCursorHold.nvim',
     'nvim-treesitter/nvim-treesitter',
     'fredrikaverpil/neotest-golang',
-    'Issafalcon/neotest-dotnet',
+    'nsidorenco/neotest-vstest',
     'marilari88/neotest-vitest',
     'nvim-neotest/neotest-jest',
   },

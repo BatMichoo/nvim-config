@@ -1,5 +1,5 @@
 return {
   adapter = function()
-    return require 'neotest-dotnet' {}
+    return require 'neotest-vstest'
   end,
 }
