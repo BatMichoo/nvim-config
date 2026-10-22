@@ -4,7 +4,8 @@ local loader = require 'utils.loader'
 function M.get()
   local installed = {}
   loader.scan('lsp/formatters', function(_, config)
-    local name = config.mason or config.formatter
+    -- mason = false: tool ships outside Mason (e.g. with an SDK)
+    local name = config.mason ~= false and (config.mason or config.formatter)
     if name and not vim.tbl_contains(installed, name) then
       table.insert(installed, name)
     end
@@ -23,6 +24,16 @@ function M.get_by_filetype()
     end
   end)
   return by_ft
+end
+
+function M.get_definitions()
+  local defs = {}
+  loader.scan('lsp/formatters', function(_, config)
+    if config.definition then
+      defs[config.formatter] = config.definition
+    end
+  end)
+  return defs
 end
 
 M.load = M.get
