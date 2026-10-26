@@ -5,9 +5,7 @@ return {
   config = function()
     require('easy-dotnet').setup {
       debugger = {
-        mappings = {},
-        bin_path = 'netcoredbg',
-        auto_register_dap = false,
+        auto_register_dap = true,
       },
       lsp = {
         enabled = true,
@@ -17,7 +15,8 @@ return {
         enabled = true,
       },
       test_runner = {
-        enable_buffer_test_execution = false,
+        -- neotest owns the buffer signs and keymaps
+        neotest_integration = true,
       },
     }
 

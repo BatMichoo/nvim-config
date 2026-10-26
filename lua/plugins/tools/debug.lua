@@ -11,7 +11,6 @@ return {
     'nvim-neotest/nvim-nio',
 
     'leoluz/nvim-dap-go', -- GO
-    'BatMichoo/nvim-dap-cs', -- C#
   },
   config = function()
     local dap = require 'dap'
@@ -37,7 +36,6 @@ return {
     if require('debugging').is_enabled 'delve' then
       require('dap-go').setup {}
     end
-    require('dap-cs').setup {}
 
     local is_windows = require('utils').is_windows
     local mason_path = vim.fn.stdpath 'data' .. '/mason/bin/'
