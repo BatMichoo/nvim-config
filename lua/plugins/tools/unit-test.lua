@@ -3,8 +3,20 @@ return {
   config = function()
     require('neotest').setup {
       adapters = require('testing').get(),
+      consumers = {
+        -- The client only starts discovering on the first run/summary call,
+        -- so status signs never show up before then. Start it right away.
+        autostart = function(client)
+          require('nio').run(function()
+            client:get_adapters()
+          end)
+          return {}
+        end,
+      },
     }
   end,
+  -- Filetypes covered by the adapters in lua/testing
+  ft = { 'cs', 'go', 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' },
   dependencies = {
     'nvim-neotest/nvim-nio',
     'nvim-lua/plenary.nvim',
