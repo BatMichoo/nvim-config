@@ -43,7 +43,7 @@ return {
     -- Running & Building
     { '<leader>nt', '<cmd>:Dotnet test default<CR>', desc = 'Run Default Test' },
     { '<leader>nT', '<cmd>:Dotnet test solution<CR>', desc = 'Run Solution Tests' },
-    { '<leader>ts', '<cmd>:Dotnet testrunner<CR>', ft = 'cs', desc = 'Test Runner' },
+    { '<leader>tr', '<cmd>:Dotnet testrunner<CR>', ft = 'cs', desc = 'Test Runner' },
     { '<leader>nb', '<cmd>:Dotnet build default<CR>', desc = 'Build Default Project' },
     { '<leader>nB', '<cmd>:Dotnet build solution<CR>', desc = 'Build Solution' },
     { '<leader>nq', '<cmd>:Dotnet build default quickfix<CR>', desc = 'Build Default to Quickfix' },
