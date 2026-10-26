@@ -43,6 +43,8 @@ return {
     'nvim-treesitter/nvim-treesitter',
     { 'folke/edgy.nvim', optional = true },
   },
+  -- Lets commands (e.g. from the Alpha dashboard) load the plugin, not just keymaps
+  cmd = { 'CodeCompanion', 'CodeCompanionChat', 'CodeCompanionActions', 'CodeCompanionCLI', 'CodeCompanionCmd' },
   init = function()
     -- Needs the Claude Code hooks from `:CodeCompanionCLI Install`
     vim.api.nvim_create_autocmd('User', {
