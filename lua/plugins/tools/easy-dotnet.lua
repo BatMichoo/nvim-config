@@ -15,8 +15,14 @@ return {
         enabled = true,
       },
       test_runner = {
-        -- neotest owns the buffer signs and keymaps
-        neotest_integration = true,
+        -- Test-file keymaps reuse the neotest keys from unit-test.lua, so C# keeps the
+        -- same muscle memory. The defaults (<leader>d, <leader>t) would shadow those prefixes.
+        mappings = {
+          run_test_from_buffer = { lhs = '<leader>tn', desc = 'Run: Nearest Test' },
+          run_all_tests_from_buffer = { lhs = '<leader>tf', desc = 'Run: Current File' },
+          debug_test_from_buffer = { lhs = '<leader>dt', desc = 'Debug: Nearest Unit Test' },
+          peek_stack_trace_from_buffer = { lhs = '<leader>tp', desc = 'Peek Test Output' },
+        },
       },
     }
 
@@ -37,6 +43,7 @@ return {
     -- Running & Building
     { '<leader>nt', '<cmd>:Dotnet test default<CR>', desc = 'Run Default Test' },
     { '<leader>nT', '<cmd>:Dotnet test solution<CR>', desc = 'Run Solution Tests' },
+    { '<leader>ts', '<cmd>:Dotnet testrunner<CR>', ft = 'cs', desc = 'Test Runner' },
     { '<leader>nb', '<cmd>:Dotnet build default<CR>', desc = 'Build Default Project' },
     { '<leader>nB', '<cmd>:Dotnet build solution<CR>', desc = 'Build Solution' },
     { '<leader>nq', '<cmd>:Dotnet build default quickfix<CR>', desc = 'Build Default to Quickfix' },

@@ -15,15 +15,14 @@ return {
       },
     }
   end,
-  -- Filetypes covered by the adapters in lua/testing
-  ft = { 'cs', 'go', 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' },
+  -- Filetypes covered by the adapters in lua/testing (C# uses easy-dotnet's runner)
+  ft = { 'go', 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' },
   dependencies = {
     'nvim-neotest/nvim-nio',
     'nvim-lua/plenary.nvim',
     'antoinemadec/FixCursorHold.nvim',
     'nvim-treesitter/nvim-treesitter',
     'fredrikaverpil/neotest-golang',
-    'GustavEikaas/easy-dotnet.nvim',
     'marilari88/neotest-vitest',
     'nvim-neotest/neotest-jest',
   },
