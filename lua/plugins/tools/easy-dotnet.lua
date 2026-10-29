@@ -20,19 +20,6 @@ return {
         enable_buffer_test_execution = false,
       },
     }
-
-    -- Roslyn skips buffers not yet on disk, and LSP only attaches on FileType,
-    -- so a new .cs file never gets a client. Retry attaching after the first save.
-    vim.api.nvim_create_autocmd('BufWritePost', {
-      desc = 'Attach Roslyn to newly created .cs files',
-      group = vim.api.nvim_create_augroup('easy-dotnet-new-file', { clear = true }),
-      pattern = '*.cs',
-      callback = function(ev)
-        if #vim.lsp.get_clients { bufnr = ev.buf, name = 'easy_dotnet' } == 0 then
-          vim.api.nvim_exec_autocmds('FileType', { group = 'nvim.lsp.enable', buffer = ev.buf })
-        end
-      end,
-    })
   end,
   keys = {
     -- Running & Building
