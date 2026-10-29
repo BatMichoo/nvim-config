@@ -11,6 +11,8 @@ return {
       },
       lsp = {
         enabled = true,
+        -- Roslyn's project graph goes stale after a checkout; restart it when .git/HEAD changes.
+        restart_roslyn_on_branch_change = true,
       },
       auto_bootstrap_namespace = {
         type = 'file_scoped',
