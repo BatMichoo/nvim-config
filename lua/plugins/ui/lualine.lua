@@ -20,6 +20,9 @@ return {
 
     local job_indicator = { require('easy-dotnet.ui-modules.jobs').lualine }
 
+    local progress = require 'utils.progress'
+    progress.setup()
+
     return {
       options = {
         theme = custom_auto,
@@ -27,6 +30,8 @@ return {
       },
       sections = {
         lualine_a = { 'mode', job_indicator },
+        -- The progress bar sizes itself to the free middle and draws its own separators
+        lualine_c = { { 'filename', separator = '' }, { progress.status, padding = 0 } },
         lualine_x = {
           {
             'filetype',
