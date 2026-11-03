@@ -1,6 +1,7 @@
 local filetype_names = {
   javascriptreact = 'React JS',
   typescriptreact = 'React TS',
+  codecompanion_cli = 'AI CLI',
 }
 
 return {
@@ -12,6 +13,10 @@ return {
     custom_auto.normal.a.bg = '#007ACC'
     custom_auto.normal.a.fg = '#E5E5E5'
     custom_auto.normal.b.fg = '#007ACC'
+
+    local devicons = require 'nvim-web-devicons'
+    devicons.set_icon { codecompanion_cli = { icon = '󰚩', color = '#D97757', name = 'AiCli' } }
+    devicons.set_icon_by_filetype { codecompanion_cli = 'codecompanion_cli' }
 
     local job_indicator = { require('easy-dotnet.ui-modules.jobs').lualine }
 
