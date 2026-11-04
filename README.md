@@ -11,6 +11,7 @@ A modern, fast, cross-platform, and feature-rich Neovim configuration optimized 
 - 🔷 **C# First-Class Support**: Custom Roslyn extensions and `easy-dotnet.nvim` for a seamless .NET experience.
 - 🎨 **Modern Aesthetics**: `vscode-modern` theme with custom semantic highlighting.
 - 🤖 **AI-Powered**: Native integration with `CodeCompanion.nvim` for agentic workflows.
+- 🗄️ **Database Client**: `dadbod-grip.nvim` with connections defined in a local, untracked `lua/databases.lua`.
 - 🧩 **Productivity Boosters**: Telescope, Harpoon, Neo-tree, and more.
 
 ---
@@ -33,7 +34,7 @@ A modern, fast, cross-platform, and feature-rich Neovim configuration optimized 
 ## 🎨 UI & UX
 
 - **Theme**: `vscode_modern_theme.nvim` with transparent background and custom highlights.
-- **Statusline**: `lualine.nvim` for a clean and informative bottom bar.
+- **Statusline**: `lualine.nvim` for a clean and informative bottom bar, with an animated progress bar for LSP and native Neovim progress (e.g. Roslyn loading a solution).
 - **Notifications**: `noice.nvim` and `nvim-notify` for modern popups and CMD line.
 - **File Explorer**: `neo-tree.lua` for sidebar navigation.
 - **Dashboard**: `alpha.nvim` for a fast, custom start screen.
@@ -80,6 +81,30 @@ The config features **CodeCompanion.nvim** integrated with the **Gemini CLI agen
 
 ---
 
+## 🗄️ Databases
+
+Database browsing and querying use **dadbod-grip.nvim** (a fork with SQL Server Entra ID auth). Connections live in `lua/databases.lua`, which is gitignored so credentials stay out of the repo:
+
+```sh
+cp lua/databases.template.lua lua/databases.lua
+```
+
+Then fill in `servers` (host aliases) and `definitions` (one entry per database, listing which servers it lives on). Restart Neovim after editing; the file is read once when grip loads.
+
+| Action                 | Shortcut     |
+| :--------------------- | :----------- |
+| **Toggle Browser Tab** | `<leader>Db` |
+| **Connections**        | `<leader>Dc` |
+| **Query Pad**          | `<leader>Dq` |
+| **Tables**             | `<leader>Dt` |
+| **Schema Browser**     | `<leader>Ds` |
+| **Query History**      | `<leader>Dh` |
+| **Load Saved Query**   | `<leader>Dl` |
+
+The dashboard's `b` button opens the same browser tab.
+
+---
+
 ## ⌨️ Key Navigation & Shortcuts
 
 ### General & Search
@@ -120,10 +145,11 @@ The config features **CodeCompanion.nvim** integrated with the **Gemini CLI agen
 
 ## 📦 Installation
 
-1. Ensure you have **Neovim 0.10+** installed.
+1. Ensure you have **Neovim 0.12+** installed.
 2. Clone this repo to `~/.config/nvim`.
 3. Open Neovim; `lazy.nvim` will automatically download and install all plugins.
 4. `utils.installer` will automatically prompt Mason to install all LSP servers, linters, formatters, and debuggers.
+5. Optional: copy `lua/databases.template.lua` to `lua/databases.lua` and add your database connections (see the Databases section above).
 
 ---
 
