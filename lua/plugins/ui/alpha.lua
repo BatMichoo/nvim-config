@@ -57,7 +57,7 @@ return {
       dashboard.button('g', '   LazyGit', ':LazyGit<CR>'),
       dashboard.button('L', '💤  Lazy', ':Lazy<CR>'),
       dashboard.button('M', '📦  Mason', ':Mason<CR>'),
-      dashboard.button('q', '🛑  Quit', ':q<CR>'),
+      dashboard.button('q', '🛑  Quit', '<cmd>qa<CR>'),
     }
 
     dashboard.section.git = {
