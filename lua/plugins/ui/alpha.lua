@@ -50,13 +50,15 @@ return {
     }
 
     dashboard.section.buttons.val = {
+      -- Opening the cwd as a directory buffer lets neo-tree take it over, same as `nvim .`
+      dashboard.button('f', '📂  Files', '<cmd>edit .<CR>'),
       dashboard.button('s', '🛠️  Settings', ":lua require('telescope.builtin').find_files({ cwd = vim.fn.stdpath 'config' })<CR>"),
-      dashboard.button('c', '🤖  CodeCompanion', '<cmd>CodeCompanionCLI<CR>'),
-      dashboard.button('b', '📁  DB', '<cmd>GripTab<CR>'),
-      dashboard.button('v', '🎮  VimBeGood', ':VimBeGood<CR>'),
+      dashboard.button('b', '   Databases', '<cmd>GripTab<CR>'),
+      dashboard.button('c', '🤖  Code Companion', '<cmd>CodeCompanionCLI<CR>'),
       dashboard.button('g', '   LazyGit', ':LazyGit<CR>'),
       dashboard.button('L', '💤  Lazy', ':Lazy<CR>'),
       dashboard.button('M', '📦  Mason', ':Mason<CR>'),
+      dashboard.button('v', '🎮  VimBeGood', ':VimBeGood<CR>'),
       dashboard.button('q', '🛑  Quit', '<cmd>qa<CR>'),
     }
 
