@@ -40,6 +40,34 @@ return {
       },
     }
   end,
+  init = function()
+    -- Same as <leader>Db, for the Alpha dashboard
+    vim.api.nvim_create_user_command('GripTab', toggle_grip_tab, { desc = 'Toggle the grip browser tab' })
+  end,
+  -- Lets commands (e.g. from GripTab) load the plugin, not just keymaps
+  cmd = {
+    'GripAttach',
+    'GripConnect',
+    'GripCreate',
+    'GripDetach',
+    'GripDiff',
+    'GripDrop',
+    'GripExplain',
+    'GripExport',
+    'GripHistory',
+    'GripHome',
+    'GripImport',
+    'GripLoad',
+    'GripOpen',
+    'GripProfile',
+    'GripProperties',
+    'GripQuery',
+    'GripRename',
+    'GripSave',
+    'GripSchema',
+    'GripTables',
+    'GripToggle',
+  },
   keys = {
     { '<leader>Db', toggle_grip_tab, desc = 'Toggle [b]rowser tab' },
     { '<leader>Dc', '<cmd>GripConnect<cr>', desc = '[c]onnections' },
